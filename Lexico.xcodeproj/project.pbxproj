@@ -8,15 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		3FABFC369C87E8EDB981BEEA /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A045AE2FF48B0F593C76C34E /* Pods.framework */; };
+		B4074FB21C1F60CB00A0ECE7 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4074FB11C1F60CB00A0ECE7 /* UserPreferences.swift */; };
 		B40BEB081BF5217C00343E3E /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40BEB071BF5217C00343E3E /* CoreDataStackManager.swift */; };
+		B419FF341C1B828E00235E69 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = B419FF331C1B828E00235E69 /* Language.swift */; };
 		B4F3CDD61BF3FA2A00071A84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3CDD51BF3FA2A00071A84 /* AppDelegate.swift */; };
-		B4F3CDD81BF3FA2A00071A84 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3CDD71BF3FA2A00071A84 /* ViewController.swift */; };
+		B4F3CDD81BF3FA2A00071A84 /* TranslateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3CDD71BF3FA2A00071A84 /* TranslateViewController.swift */; };
 		B4F3CDDB1BF3FA2A00071A84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4F3CDD91BF3FA2A00071A84 /* Main.storyboard */; };
 		B4F3CDDE1BF3FA2A00071A84 /* Lexico.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4F3CDDC1BF3FA2A00071A84 /* Lexico.xcdatamodeld */; };
 		B4F3CDE01BF3FA2A00071A84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4F3CDDF1BF3FA2A00071A84 /* Assets.xcassets */; };
 		B4F3CDE31BF3FA2A00071A84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4F3CDE11BF3FA2A00071A84 /* LaunchScreen.storyboard */; };
 		B4F3CDEE1BF3FA2B00071A84 /* LexicoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3CDED1BF3FA2B00071A84 /* LexicoTests.swift */; };
 		B4F3CDF91BF3FA2B00071A84 /* LexicoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3CDF81BF3FA2B00071A84 /* LexicoUITests.swift */; };
+		B4FF752E1C17A0790091B2C6 /* LanguagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF752D1C17A0790091B2C6 /* LanguagePickerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,10 +42,12 @@
 /* Begin PBXFileReference section */
 		4FFFCC023200F1BB44D0C809 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A045AE2FF48B0F593C76C34E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4074FB11C1F60CB00A0ECE7 /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		B40BEB071BF5217C00343E3E /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		B419FF331C1B828E00235E69 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		B4F3CDD21BF3FA2A00071A84 /* Lexico.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lexico.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F3CDD51BF3FA2A00071A84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B4F3CDD71BF3FA2A00071A84 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B4F3CDD71BF3FA2A00071A84 /* TranslateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewController.swift; sourceTree = "<group>"; };
 		B4F3CDDA1BF3FA2A00071A84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4F3CDDD1BF3FA2A00071A84 /* Lexico.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lexico.xcdatamodel; sourceTree = "<group>"; };
 		B4F3CDDF1BF3FA2A00071A84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,6 +59,8 @@
 		B4F3CDF41BF3FA2B00071A84 /* LexicoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LexicoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F3CDF81BF3FA2B00071A84 /* LexicoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexicoUITests.swift; sourceTree = "<group>"; };
 		B4F3CDFA1BF3FA2B00071A84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4FF752B1C149B350091B2C6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B4FF752D1C17A0790091B2C6 /* LanguagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagePickerController.swift; sourceTree = "<group>"; };
 		EB30B1E3D12B8C37DF69AEC6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +110,9 @@
 		B40BEB031BF520E900343E3E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B4F3CDDC1BF3FA2A00071A84 /* Lexico.xcdatamodeld */,
+				B419FF331C1B828E00235E69 /* Language.swift */,
+				B4074FB11C1F60CB00A0ECE7 /* UserPreferences.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -117,6 +127,8 @@
 		B40BEB061BF5210500343E3E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B4FF752D1C17A0790091B2C6 /* LanguagePickerController.swift */,
+				B4F3CDD71BF3FA2A00071A84 /* TranslateViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -124,6 +136,7 @@
 		B4F3CDC91BF3FA2A00071A84 = {
 			isa = PBXGroup;
 			children = (
+				B4FF752B1C149B350091B2C6 /* README.md */,
 				B4F3CDD41BF3FA2A00071A84 /* Lexico */,
 				B4F3CDEC1BF3FA2B00071A84 /* LexicoTests */,
 				B4F3CDF71BF3FA2B00071A84 /* LexicoUITests */,
@@ -146,17 +159,12 @@
 		B4F3CDD41BF3FA2A00071A84 /* Lexico */ = {
 			isa = PBXGroup;
 			children = (
+				B4F3CDD51BF3FA2A00071A84 /* AppDelegate.swift */,
+				B40BEB071BF5217C00343E3E /* CoreDataStackManager.swift */,
+				B4FF752A1C148F230091B2C6 /* Supporting Files */,
 				B40BEB061BF5210500343E3E /* Controller */,
 				B40BEB051BF520FC00343E3E /* View */,
 				B40BEB031BF520E900343E3E /* Model */,
-				B4F3CDD51BF3FA2A00071A84 /* AppDelegate.swift */,
-				B40BEB071BF5217C00343E3E /* CoreDataStackManager.swift */,
-				B4F3CDD71BF3FA2A00071A84 /* ViewController.swift */,
-				B4F3CDD91BF3FA2A00071A84 /* Main.storyboard */,
-				B4F3CDDF1BF3FA2A00071A84 /* Assets.xcassets */,
-				B4F3CDE11BF3FA2A00071A84 /* LaunchScreen.storyboard */,
-				B4F3CDE41BF3FA2A00071A84 /* Info.plist */,
-				B4F3CDDC1BF3FA2A00071A84 /* Lexico.xcdatamodeld */,
 			);
 			path = Lexico;
 			sourceTree = "<group>";
@@ -177,6 +185,17 @@
 				B4F3CDFA1BF3FA2B00071A84 /* Info.plist */,
 			);
 			path = LexicoUITests;
+			sourceTree = "<group>";
+		};
+		B4FF752A1C148F230091B2C6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B4F3CDD91BF3FA2A00071A84 /* Main.storyboard */,
+				B4F3CDE11BF3FA2A00071A84 /* LaunchScreen.storyboard */,
+				B4F3CDDF1BF3FA2A00071A84 /* Assets.xcassets */,
+				B4F3CDE41BF3FA2A00071A84 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,9 +381,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4F3CDDE1BF3FA2A00071A84 /* Lexico.xcdatamodeld in Sources */,
+				B4074FB21C1F60CB00A0ECE7 /* UserPreferences.swift in Sources */,
 				B40BEB081BF5217C00343E3E /* CoreDataStackManager.swift in Sources */,
-				B4F3CDD81BF3FA2A00071A84 /* ViewController.swift in Sources */,
+				B4F3CDD81BF3FA2A00071A84 /* TranslateViewController.swift in Sources */,
+				B419FF341C1B828E00235E69 /* Language.swift in Sources */,
 				B4F3CDD61BF3FA2A00071A84 /* AppDelegate.swift in Sources */,
+				B4FF752E1C17A0790091B2C6 /* LanguagePickerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
