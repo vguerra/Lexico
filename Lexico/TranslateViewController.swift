@@ -9,28 +9,46 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
+class TranslateViewController: UIViewController, AVSpeechSynthesizerDelegate {
 
     @IBOutlet weak var textToSpeek: UITextField!
-    let speechSynthesizer = AVSpeechSynthesizer()
+    @IBOutlet weak var translateToLanguageButton: UIButton!
+    @IBOutlet weak var translateToFlagLabel: UILabel!
+    @IBOutlet weak var translateToLanguageLabel: UILabel!
     
+    var translateToLanguage : Language?
+    
+    let speechSynthesizer = AVSpeechSynthesizer()
+
+    // MARK: View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         speechSynthesizer.delegate = self
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let savedLanguage = UserPreferences.getTranslateToLanguage() {
+            translateToLanguage = savedLanguage
+            translateToLanguageButton.setTitle(savedLanguage.name, forState: .Normal)
+            translateToFlagLabel.text = savedLanguage.name
+            translateToFlagLabel.text = savedLanguage.emoji
+        }
     }
 
 
     @IBAction func speekTouchUpInside(sender: AnyObject) {
         let utterance = AVSpeechUtterance(string: textToSpeek.text!)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-EN")
+        utterance.voice = AVSpeechSynthesisVoice(language: "es-ES")
         
         speechSynthesizer.speakUtterance(utterance)
+    }
+    
+    @IBAction func translateToLanguageTouchUpInside(sender: AnyObject) {
+        performSegueWithIdentifier("presentLanguagePicker", sender: nil)
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
@@ -53,3 +71,5 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 }
 
+// Dictionary key: dict.1.1.20151116T223221Z.b505e3f3550e1503.a17459cd826bbf796883a82ae23f6a36cc46177b
+// Translation key: trnsl.1.1.20151116T223538Z.ad543d124ed92780.1151a8f5c62bee4df561562739771bf7d93316c4
