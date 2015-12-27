@@ -11,10 +11,12 @@ import AVFoundation
 
 class TranslateViewController: UIViewController, AVSpeechSynthesizerDelegate {
 
-    @IBOutlet weak var textToSpeek: UITextField!
     @IBOutlet weak var translateToLanguageButton: UIButton!
     @IBOutlet weak var translateToFlagLabel: UILabel!
     @IBOutlet weak var translateToLanguageLabel: UILabel!
+    
+    @IBOutlet weak var originalText: UITextView!
+    @IBOutlet weak var translatedText: UITextView!
     
     var translateToLanguage : Language?
     
@@ -40,26 +42,32 @@ class TranslateViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 
 
-    @IBAction func speekTouchUpInside(sender: AnyObject) {
-        let utterance = AVSpeechUtterance(string: textToSpeek.text!)
-        utterance.voice = AVSpeechSynthesisVoice(language: "es-ES")
-        
-        speechSynthesizer.speakUtterance(utterance)
-    }
+//    @IBAction func speekTouchUpInside(sender: AnyObject) {
+//        let utterance = AVSpeechUtterance(string: textToSpeek.text!)
+//        utterance.voice = AVSpeechSynthesisVoice(language: "es-ES")
+//        
+//        speechSynthesizer.speakUtterance(utterance)
+//    }
     
     @IBAction func translateToLanguageTouchUpInside(sender: AnyObject) {
         performSegueWithIdentifier("presentLanguagePicker", sender: nil)
     }
     
+    @IBAction func translateTouchUpInside(sender: AnyObject) {
+        
+        try? Glosbe.translate(translateToLanguage!, originalText.text)
+    }
+    
+    
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         
-        let attText = NSMutableAttributedString(string: utterance.speechString)
-        attText.setAttributes([NSBackgroundColorAttributeName: UIColor.lightGrayColor()], range: characterRange)
-        
-        let spokenString = (utterance.speechString as NSString).substringWithRange(characterRange)
-        print("about to speak: \(spokenString)")
-
-        textToSpeek.attributedText = attText
+//        let attText = NSMutableAttributedString(string: utterance.speechString)
+//        attText.setAttributes([NSBackgroundColorAttributeName: UIColor.lightGrayColor()], range: characterRange)
+//        
+//        let spokenString = (utterance.speechString as NSString).substringWithRange(characterRange)
+//        print("about to speak: \(spokenString)")
+//
+//        textToSpeek.attributedText = attText
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
@@ -71,5 +79,3 @@ class TranslateViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 }
 
-// Dictionary key: dict.1.1.20151116T223221Z.b505e3f3550e1503.a17459cd826bbf796883a82ae23f6a36cc46177b
-// Translation key: trnsl.1.1.20151116T223538Z.ad543d124ed92780.1151a8f5c62bee4df561562739771bf7d93316c4
