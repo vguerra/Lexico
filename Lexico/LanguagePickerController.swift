@@ -11,8 +11,8 @@ import UIKit
 // TODO: This has to be moved somewhere else
 
 let languages = [
-    Language(code: "en_US", name: "English", emoji: "🇬🇧"),
-    Language(code: "es_ES", name: "Spanish", emoji: "🇪🇸")
+    Language(code: "eng", tag: "en_US", name: "English", emoji: "🇬🇧"),
+    Language(code: "spa", tag: "es_ES", name: "Spanish", emoji: "🇪🇸")
 ]
 
 enum SBIdentifiers : String {
