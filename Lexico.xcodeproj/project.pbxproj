@@ -11,6 +11,8 @@
 		B4074FB21C1F60CB00A0ECE7 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4074FB11C1F60CB00A0ECE7 /* UserPreferences.swift */; };
 		B40BEB081BF5217C00343E3E /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40BEB071BF5217C00343E3E /* CoreDataStackManager.swift */; };
 		B419FF341C1B828E00235E69 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = B419FF331C1B828E00235E69 /* Language.swift */; };
+		B4A9B95C1C382F5800FFE546 /* ResultResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9B95B1C382F5800FFE546 /* ResultResult.swift */; };
+		B4AB0BC01C305AD900E2433D /* GlosbeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB0BBF1C305AD900E2433D /* GlosbeAPI.swift */; };
 		B4F3CDD61BF3FA2A00071A84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3CDD51BF3FA2A00071A84 /* AppDelegate.swift */; };
 		B4F3CDD81BF3FA2A00071A84 /* TranslateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3CDD71BF3FA2A00071A84 /* TranslateViewController.swift */; };
 		B4F3CDDB1BF3FA2A00071A84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4F3CDD91BF3FA2A00071A84 /* Main.storyboard */; };
@@ -45,6 +47,8 @@
 		B4074FB11C1F60CB00A0ECE7 /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		B40BEB071BF5217C00343E3E /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		B419FF331C1B828E00235E69 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		B4A9B95B1C382F5800FFE546 /* ResultResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultResult.swift; sourceTree = "<group>"; };
+		B4AB0BBF1C305AD900E2433D /* GlosbeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlosbeAPI.swift; sourceTree = "<group>"; };
 		B4F3CDD21BF3FA2A00071A84 /* Lexico.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lexico.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F3CDD51BF3FA2A00071A84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4F3CDD71BF3FA2A00071A84 /* TranslateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 				B4F3CDDC1BF3FA2A00071A84 /* Lexico.xcdatamodeld */,
 				B419FF331C1B828E00235E69 /* Language.swift */,
 				B4074FB11C1F60CB00A0ECE7 /* UserPreferences.swift */,
+				B4AB0BBF1C305AD900E2433D /* GlosbeAPI.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 				B4F3CDE11BF3FA2A00071A84 /* LaunchScreen.storyboard */,
 				B4F3CDDF1BF3FA2A00071A84 /* Assets.xcassets */,
 				B4F3CDE41BF3FA2A00071A84 /* Info.plist */,
+				B4A9B95B1C382F5800FFE546 /* ResultResult.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -380,6 +386,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4A9B95C1C382F5800FFE546 /* ResultResult.swift in Sources */,
+				B4AB0BC01C305AD900E2433D /* GlosbeAPI.swift in Sources */,
 				B4F3CDDE1BF3FA2A00071A84 /* Lexico.xcdatamodeld in Sources */,
 				B4074FB21C1F60CB00A0ECE7 /* UserPreferences.swift in Sources */,
 				B40BEB081BF5217C00343E3E /* CoreDataStackManager.swift in Sources */,
