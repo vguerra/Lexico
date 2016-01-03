@@ -55,7 +55,14 @@ class TranslateViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
     @IBAction func translateTouchUpInside(sender: AnyObject) {
         
-        try? Glosbe.translate(translateToLanguage!, originalText.text)
+        Glosbe.translate(languages[0], translateToLanguage!, originalText.text) { trnResult in
+            switch trnResult {
+            case .Failure(let error):
+                print("An error ocurred: \(error)")
+            case .Success(let translation):
+                print("Success: \(translation)")
+            }
+        }
     }
     
     

@@ -8,45 +8,70 @@
 
 import Alamofire
 
-
 /// Helper struct that encapsulates interaction w/Glosbe API
 
-enum TranslationError : ErrorType {
-    case Error1, Error2
+struct Translation {
+    let from : String
+    let dest : String
+    let phrases : [String]
+    let examples : [(String, String)]
 }
 
+typealias TrnResult = RResult<Translation, NSError>.t
+
 struct Glosbe {
-    private static let dictionaryKey = "dict.1.1.20151116T223221Z.b505e3f3550e1503.a17459cd826bbf796883a82ae23f6a36cc46177b"
-    private static let translationKey = "trnsl.1.1.20151116T223538Z.ad543d124ed92780.1151a8f5c62bee4df561562739771bf7d93316c4"
-    
     private static let apiURL = "https://glosbe.com/gapi/"
-    
     private static let baseUrlParamDict = [
-        "from" : "eng",
-        "tm" : "false",
+        "tm" : "true",
         "format" : "json"
-        
     ]
     
-    private static let fromLanguage = "eng"
-    
-    static func translate (dest : Language, _ phrase : String) throws -> () {
+    static func translate (from: Language, _ dest : Language, _ phrase : String, _ handler : (TrnResult) -> ()) {
         let function = "translate"
         var urlParamDict : [String : String] = baseUrlParamDict
         
+        urlParamDict["from"] = from.code
         urlParamDict["dest"] = dest.code
         urlParamDict["phrase"] = phrase
-        
-        debugPrint(dest.code)
+        urlParamDict["pretty"] = "true"
         
         Alamofire.request(.GET, apiURL + function, parameters: urlParamDict,
             encoding: .URLEncodedInURL, headers: nil).responseJSON { response in
                 if response.result.isFailure {
-                    
+                    handler( .Failure(response.result.error!) )
+                } else {
+                    handler(parseTranslationJSON(response.result.value!))
+                }
+        }
+    }
+    
+    static func parseTranslationJSON(json: AnyObject) -> TrnResult {
+        guard let ok = json["result"] as? String where ok == "ok" else {
+            return .Failure(NSError(domain: "parsing Translation error", code: 0, userInfo: nil))
+        }
+        
+        if let dest = json["dest"] as? String,
+            let from = json["from"] as? String,
+            let tucObjs = json["tuc"] as? [[String : AnyObject]] {
+                
+                // processing tuc array of objects
+                let phrases = tucObjs.flatMap() { tuc -> String? in
+                    if let phraseObj = tuc["phrase"] as? [String:String] {
+                        return phraseObj["text"]
+                    }
+                    return nil
                 }
                 
-                debugPrint(response.result.value)
+                // processing example array of objects
+                let exampleObjs = json["examples"] as? [[String : AnyObject]]
+                let examples = exampleObjs?.map() { example in
+                    return (example["first"] as! String, example["second"] as! String)
+                }
+                
+                return .Success(Translation(from: from, dest: dest, phrases: phrases, examples: examples ?? []))
         }
+        
+        return .Failure(NSError(domain: "parsing Translation error", code: 1, userInfo: nil))
         
     }
 }
