@@ -34,7 +34,7 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        //translateToLanguage = UserPreferences.getTranslateToLanguage()
+        translateToLanguage = UserPreferences.getTranslateToLanguage()
         
     }
     
@@ -62,6 +62,11 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
         let language = languages[indexPath.row]
         languageCell.textLabel?.text = language.name
         
+        if let chosenLanguage = translateToLanguage
+            where chosenLanguage.code == language.code {
+                tableView.selectRowAtIndexPath(indexPath, animated: false,
+                    scrollPosition: UITableViewScrollPosition.None)
+        }
         return languageCell
     }
     
