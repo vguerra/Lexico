@@ -38,6 +38,15 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
         
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    // MARK: IBActions
+    @IBAction func dismissController(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     // MARK: Conforming to UITableViewDataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
@@ -47,10 +56,6 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
         if let headerView = view as? UITableViewHeaderFooterView {
             headerView.textLabel?.textAlignment = .Center
         }
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Select your desired Language"
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,7 +80,7 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Saving user's choice
         UserPreferences.saveTranslateToLanguage(languages[indexPath.row])
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissController(tableView)
     }
     
 }

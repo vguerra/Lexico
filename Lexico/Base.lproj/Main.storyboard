@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uNG-7s-ltF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uNG-7s-ltF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -19,6 +19,7 @@
                     <connections>
                         <segue destination="hJO-BQ-Myg" kind="relationship" relationship="viewControllers" id="vCR-Pm-Kz4"/>
                         <segue destination="HD4-uQ-fiQ" kind="relationship" relationship="viewControllers" id="Irz-3g-CUZ"/>
+                        <segue destination="LDR-bx-MRD" kind="relationship" relationship="viewControllers" id="tkD-co-Kaf"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vnc-Wt-4nR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -231,8 +232,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTf-6T-lFQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Select your desired Language" id="HCt-8q-drq">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="8l8-Fd-ppC">
+                                            <connections>
+                                                <action selector="dismissController:" destination="XcE-tj-PFi" id="XaB-Ms-VZs"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Xt-AZ-RMh">
-                                <rect key="frame" x="0.0" y="28" width="600" height="572"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="languageCell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="languageCell" id="miW-dC-q6r">
@@ -249,10 +262,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="1Xt-AZ-RMh" secondAttribute="trailing" constant="-20" id="0Fd-U8-7A3"/>
+                            <constraint firstItem="hTf-6T-lFQ" firstAttribute="leading" secondItem="1Xt-AZ-RMh" secondAttribute="leading" id="7me-GQ-fc2"/>
+                            <constraint firstItem="hTf-6T-lFQ" firstAttribute="top" secondItem="Nn7-bp-fjX" secondAttribute="topMargin" id="9zz-U3-ZYK"/>
+                            <constraint firstItem="1Xt-AZ-RMh" firstAttribute="top" secondItem="hTf-6T-lFQ" secondAttribute="bottom" id="Jqu-iC-Doh"/>
                             <constraint firstItem="ohE-1j-MfD" firstAttribute="top" secondItem="1Xt-AZ-RMh" secondAttribute="bottom" id="LHr-Rw-XSE"/>
                             <constraint firstItem="1Xt-AZ-RMh" firstAttribute="leading" secondItem="Nn7-bp-fjX" secondAttribute="leadingMargin" constant="-20" id="PnT-Pl-gbU"/>
                             <constraint firstItem="1Xt-AZ-RMh" firstAttribute="top" secondItem="Ohx-IX-MEs" secondAttribute="bottom" constant="8" id="bMv-M6-3XR"/>
+                            <constraint firstItem="hTf-6T-lFQ" firstAttribute="trailing" secondItem="1Xt-AZ-RMh" secondAttribute="trailing" id="tE5-m6-aXD"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="bMv-M6-3XR"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="languagesTableView" destination="1Xt-AZ-RMh" id="wgg-PZ-2rP"/>
@@ -262,11 +284,11 @@
             </objects>
             <point key="canvasLocation" x="2016" y="-533"/>
         </scene>
-        <!--Dictionary-->
+        <!--Favorites-->
         <scene sceneID="do0-Ty-LNL">
             <objects>
                 <navigationController id="HD4-uQ-fiQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Dictionary" image="Dictionary" id="J3R-rL-R7z"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="LikeFilled" id="J3R-rL-R7z"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ou3-3o-2gA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -276,10 +298,25 @@
             </objects>
             <point key="canvasLocation" x="466" y="437"/>
         </scene>
+        <!--History-->
+        <scene sceneID="hde-7e-Tuu">
+            <objects>
+                <navigationController id="LDR-bx-MRD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="History" image="History" id="HBj-kp-EkX"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="scD-Y5-7Pu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e3Y-6G-lFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="466" y="1339"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="Dictionary" width="26" height="26"/>
         <image name="Down" width="26" height="26"/>
+        <image name="History" width="25" height="25"/>
+        <image name="LikeFilled" width="25" height="25"/>
         <image name="Right" width="26" height="26"/>
         <image name="Speak" width="26" height="26"/>
         <image name="Translate" width="25" height="25"/>
