@@ -11,21 +11,19 @@ import AVFoundation
 
 let originalLanguage = languages[0]
 
-class TranslateViewController: UIViewController {
+class TranslateViewController: BaseViewController, UITextFieldDelegate {
 
     @IBOutlet weak var translateToLanguageButton: UIButton!
-    @IBOutlet weak var translateToFlagLabel: UILabel!
-    @IBOutlet weak var translateToLanguageLabel: UILabel!
+    @IBOutlet weak var speakOriginalText: UIButton!
     
-    @IBOutlet weak var originalText: UITextView!
-    @IBOutlet weak var translatedText: UITextView!
-    
+    @IBOutlet weak var originalText: UITextField!
     var translateToLanguage : Language?
     
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        originalText.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -33,9 +31,12 @@ class TranslateViewController: UIViewController {
         
         if let savedLanguage = UserPreferences.getTranslateToLanguage() {
             translateToLanguage = savedLanguage
-            translateToLanguageButton.setTitle(savedLanguage.name, forState: .Normal)
-            translateToFlagLabel.text = savedLanguage.name
-            translateToFlagLabel.text = savedLanguage.emoji
+            translateToLanguageButton.setTitle(savedLanguage.nameAndFlag,
+                forState: .Normal)
+        }
+        
+        if (originalText.text!.isEmpty) {
+            enableSpeakOriginalTextButton(false)
         }
     }
     
@@ -44,29 +45,44 @@ class TranslateViewController: UIViewController {
     }
     
     @IBAction func translateTouchUpInside(sender: AnyObject) {
+        startActivityAnimation(message: "Loading Translations...")
         
-        Glosbe.translate(originalLanguage, translateToLanguage!, originalText.text) { trnResult in
+        Glosbe.translate(originalLanguage, translateToLanguage!, originalText.text!) { trnResult in
             switch trnResult {
             case .Failure(let error):
                 print("An error ocurred: \(error)")
             case .Success(let translation):
                 print("Success: \(translation)")
             }
+            self.stopActivityAnimation()
         }
     }
     
     @IBAction func speakFromLanguageTouchUpInside(sender: AnyObject) {
-        speakText(originalText.text, inLanguage: originalLanguage)
+        speakText(originalText.text!, inLanguage: originalLanguage)
     }
     
-    @IBAction func speakToLanguageTouchUpInside(sender: AnyObject) {
-        speakText(translatedText.text, inLanguage: translateToLanguage!)
+    
+    // MARK: Conforming to UITextFieldDelegate
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+
+        if (string.isEmpty && textField.text!.characters.count == 1) {
+            enableSpeakOriginalTextButton(false)
+        } else {
+            enableSpeakOriginalTextButton(true)
+        }
+
+        return true
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        return true
     }
     
     // MARK: Helper functions
-    func speakText(text: String, inLanguage: Language) {
-        guard !text.isEmpty else { return }
-        TextToSpeech.sharedInstance.speakText(text, language: inLanguage)
+    
+    func enableSpeakOriginalTextButton(enabled : Bool) {
+        speakOriginalText.enabled = enabled
     }
     
 }

@@ -65,7 +65,7 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let languageCell = tableView.dequeueReusableCellWithIdentifier(SBIdentifiers.languageTableViewCell.rawValue, forIndexPath: indexPath)
         let language = languages[indexPath.row]
-        languageCell.textLabel?.text = language.name
+        languageCell.textLabel?.text = language.nameAndFlag
         
         if let chosenLanguage = translateToLanguage
             where chosenLanguage.code == language.code {
