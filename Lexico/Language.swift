@@ -18,6 +18,10 @@ class Language : NSObject, NSCoding {
     // Language flag
     let emoji: String;
     
+    var nameAndFlag : String {
+        return "\(name) \(emoji)"
+    }
+    
     init (code: String, tag: String, name: String, emoji: String) {
         self.code = code
         self.tag = tag
