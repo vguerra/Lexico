@@ -9,8 +9,6 @@
 import UIKit
 import AVFoundation
 
-let originalLanguage = languages[0]
-
 class TranslateViewController: BaseViewController, UITextFieldDelegate {
 
     @IBOutlet weak var translateToLanguageButton: UIButton!
@@ -18,6 +16,8 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
     
     @IBOutlet weak var originalText: UITextField!
     var translateToLanguage : Language?
+    
+    let originalLanguage = LanguagesManager.sharedInstace.originalLanguage
     
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {

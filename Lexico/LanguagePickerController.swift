@@ -7,13 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
 // TODO: This has to be moved somewhere else
-
-let languages = [
-    Language(code: "eng", tag: "en_US", name: "English", emoji: "🇬🇧"),
-    Language(code: "spa", tag: "es_ES", name: "Spanish", emoji: "🇪🇸")
-]
 
 enum SBIdentifiers : String {
     case languageTableViewCell = "languageCell"
@@ -22,7 +18,9 @@ enum SBIdentifiers : String {
 class LanguagePickerController : UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var languagesTableView: UITableView!
+    
     var translateToLanguage : Language?
+    let LanguageManager = LanguagesManager.sharedInstace
     
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
@@ -30,6 +28,7 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
         
         languagesTableView.dataSource = self
         languagesTableView.delegate = self
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,12 +58,12 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return languages.count
+        return LanguageManager.otherLanguages.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let languageCell = tableView.dequeueReusableCellWithIdentifier(SBIdentifiers.languageTableViewCell.rawValue, forIndexPath: indexPath)
-        let language = languages[indexPath.row]
+        let language = LanguageManager.otherLanguages[indexPath.row]
         languageCell.textLabel?.text = language.nameAndFlag
         
         if let chosenLanguage = translateToLanguage
@@ -79,7 +78,7 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Saving user's choice
-        UserPreferences.saveTranslateToLanguage(languages[indexPath.row])
+        UserPreferences.saveTranslateToLanguage(LanguageManager.otherLanguages[indexPath.row])
         dismissController(tableView)
     }
     
