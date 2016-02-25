@@ -72,8 +72,8 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCg-Dg-KC4">
-                                                <rect key="frame" x="331" y="10" width="55" height="30"/>
-                                                <state key="normal" title="Spanish"/>
+                                                <rect key="frame" x="331" y="10" width="124" height="30"/>
+                                                <state key="normal" title="Choose Language"/>
                                                 <connections>
                                                     <action selector="translateToLanguageTouchUpInside:" destination="vsF-nT-5Ii" eventType="touchUpInside" id="X7J-kb-KJY"/>
                                                     <segue destination="XcE-tj-PFi" kind="presentation" identifier="presentLanguagePicker" id="f3X-M4-7st"/>

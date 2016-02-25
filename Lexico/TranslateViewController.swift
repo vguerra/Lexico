@@ -35,9 +35,8 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
                 forState: .Normal)
         }
         
-        if (originalText.text!.isEmpty) {
-            enableSpeakOriginalTextButton(false)
-        }
+        enableButton(translateToLanguageButton, enabled: translateToLanguage != nil)
+        enableButton(speakOriginalText, enabled: !originalText.text!.isEmpty)
     }
     
     @IBAction func translateToLanguageTouchUpInside(sender: AnyObject) {
@@ -46,7 +45,6 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
     
     @IBAction func translateTouchUpInside(sender: AnyObject) {
         startActivityAnimation(message: "Loading Translations...")
-        
         Glosbe.translate(originalLanguage, translateToLanguage!, originalText.text!) { trnResult in
             switch trnResult {
             case .Failure(let error):
@@ -67,9 +65,9 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 
         if (string.isEmpty && textField.text!.characters.count == 1) {
-            enableSpeakOriginalTextButton(false)
+            enableButton(speakOriginalText, enabled: false)
         } else {
-            enableSpeakOriginalTextButton(true)
+            enableButton(speakOriginalText, enabled: true)
         }
 
         return true
@@ -81,8 +79,8 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
     
     // MARK: Helper functions
     
-    func enableSpeakOriginalTextButton(enabled : Bool) {
-        speakOriginalText.enabled = enabled
+    func enableButton(button : UIButton, enabled: Bool) {
+        button.enabled = enabled
     }
     
 }
