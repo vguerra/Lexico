@@ -75,7 +75,7 @@
                                                 <rect key="frame" x="331" y="10" width="124" height="30"/>
                                                 <state key="normal" title="Choose Language"/>
                                                 <connections>
-                                                    <action selector="translateToLanguageTouchUpInside:" destination="vsF-nT-5Ii" eventType="touchUpInside" id="X7J-kb-KJY"/>
+                                                    <action selector="pickTargetLanguageTouchUpInside:" destination="vsF-nT-5Ii" eventType="touchUpInside" id="7fv-mB-LaS"/>
                                                     <segue destination="XcE-tj-PFi" kind="presentation" identifier="presentLanguagePicker" id="f3X-M4-7st"/>
                                                 </connections>
                                             </button>
@@ -158,9 +158,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="Reb-lp-4CY"/>
                     <connections>
+                        <outlet property="doTranslation" destination="D6h-Oo-R3f" id="nap-pU-wAL"/>
                         <outlet property="originalText" destination="QHK-0b-Qzq" id="fbD-Mi-O9w"/>
+                        <outlet property="pickTargetLanguage" destination="zCg-Dg-KC4" id="Aen-uB-75o"/>
                         <outlet property="speakOriginalText" destination="OdU-ti-92z" id="ySz-zm-cwo"/>
-                        <outlet property="translateToLanguageButton" destination="zCg-Dg-KC4" id="hl6-04-LLg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2FP-RF-XYX" userLabel="First Responder" sceneMemberID="firstResponder"/>

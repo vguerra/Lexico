@@ -11,8 +11,9 @@ import AVFoundation
 
 class TranslateViewController: BaseViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var translateToLanguageButton: UIButton!
+    @IBOutlet weak var pickTargetLanguage: UIButton!
     @IBOutlet weak var speakOriginalText: UIButton!
+    @IBOutlet weak var doTranslation: UIButton!
     
     @IBOutlet weak var originalText: UITextField!
     var translateToLanguage : Language?
@@ -31,15 +32,15 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
         
         if let savedLanguage = UserPreferences.getTranslateToLanguage() {
             translateToLanguage = savedLanguage
-            translateToLanguageButton.setTitle(savedLanguage.nameAndFlag,
+            pickTargetLanguage.setTitle(savedLanguage.nameAndFlag,
                 forState: .Normal)
         }
         
-        enableButton(translateToLanguageButton, enabled: translateToLanguage != nil)
+        enableButton(doTranslation, enabled: translateToLanguage != nil)
         enableButton(speakOriginalText, enabled: !originalText.text!.isEmpty)
     }
     
-    @IBAction func translateToLanguageTouchUpInside(sender: AnyObject) {
+    @IBAction func pickTargetLanguageTouchUpInside(sender: AnyObject) {
         performSegueWithIdentifier("presentLanguagePicker", sender: nil)
     }
     
