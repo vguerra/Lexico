@@ -19,6 +19,14 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
     var translateToLanguage : Language?
     
     let originalLanguage = LanguagesManager.sharedInstace.originalLanguage
+
+    var haveText : Bool {
+        return !originalText.text!.isEmpty
+    }
+    var haveTranslateToLanguage : Bool {
+        return translateToLanguage != nil
+    }
+
     
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
@@ -36,8 +44,9 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
                 forState: .Normal)
         }
         
-        enableButton(doTranslation, enabled: translateToLanguage != nil)
-        enableButton(speakOriginalText, enabled: !originalText.text!.isEmpty)
+        
+        enableButton(doTranslation, enabled: haveText && haveTranslateToLanguage)
+        enableButton(speakOriginalText, enabled: haveText && haveTranslateToLanguage)
     }
     
     @IBAction func pickTargetLanguageTouchUpInside(sender: AnyObject) {
@@ -67,8 +76,10 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
 
         if (string.isEmpty && textField.text!.characters.count == 1) {
             enableButton(speakOriginalText, enabled: false)
+            enableButton(doTranslation, enabled: false)
         } else {
             enableButton(speakOriginalText, enabled: true)
+            enableButton(doTranslation, enabled: haveTranslateToLanguage)
         }
 
         return true
