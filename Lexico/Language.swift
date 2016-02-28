@@ -40,7 +40,6 @@ class Language : NSManagedObject {
 
 class LanguagesManager {
     
-    
     private static let LanguagesCount = 2
     private static let Entity = "Language"
     internal static let sharedInstace = LanguagesManager()

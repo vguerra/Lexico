@@ -16,11 +16,18 @@ class UserPreferences {
         return url.URLByAppendingPathComponent("preferedLanguage").path!
     } ()
     
-    static func saveTranslateToLanguage(language: Language) {
-        NSKeyedArchiver.archiveRootObject(language, toFile: preferencesFilePath)
+    static func saveTranslateToLanguageIndex(index: Int) {
+        NSKeyedArchiver.archiveRootObject(index, toFile: preferencesFilePath)
+    }
+    
+    static func getTranslateToLanguageIndex() -> Int {
+        return (NSKeyedUnarchiver.unarchiveObjectWithFile(preferencesFilePath) as? Int) ?? -1
     }
     
     static func getTranslateToLanguage() -> Language? {
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(preferencesFilePath) as? Language
+        let storedIndex = getTranslateToLanguageIndex()
+        return storedIndex > -1 ?
+            LanguagesManager.sharedInstace.otherLanguages[storedIndex] : nil
+        
     }
 }

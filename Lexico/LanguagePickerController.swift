@@ -77,8 +77,7 @@ class LanguagePickerController : UIViewController, UITableViewDataSource, UITabl
     // MARK: Conforming to UITableViewDelegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // Saving user's choice
-        UserPreferences.saveTranslateToLanguage(LanguageManager.otherLanguages[indexPath.row])
+        UserPreferences.saveTranslateToLanguageIndex(indexPath.row)
         dismissController(tableView)
     }
     
