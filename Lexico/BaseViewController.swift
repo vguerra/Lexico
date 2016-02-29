@@ -66,7 +66,6 @@ class BaseViewController : UIViewController {
     
     // MARK: Helper functions
     func speakText(text: String, inLanguage: Language) {
-        guard !text.isEmpty else { return }
         TextToSpeech.sharedInstance.speakText(text, language: inLanguage)
     }
 
@@ -76,7 +75,6 @@ class BaseViewController : UIViewController {
 // Extending all UIViewControolers to have a method
 // that displays a nice UIAlertController
 extension UIViewController {
-    
     func showWarning(title title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         let OKAction = UIAlertAction(title: "OK, Got it! 👍", style: UIAlertActionStyle.Default, handler: nil)

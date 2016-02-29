@@ -29,6 +29,7 @@ class TextToSpeech : NSObject, AVSpeechSynthesizerDelegate {
     }
     
     func speakText(text: String, language : Language) {
+        guard !text.isEmpty else { return }
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: language.tag)
         speechSynthesizer.speakUtterance(utterance)
