@@ -77,7 +77,7 @@ class BaseViewController : UIViewController {
 extension UIViewController {
     func showWarning(title title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        let OKAction = UIAlertAction(title: "OK, Got it! 👍", style: UIAlertActionStyle.Default, handler: nil)
+        let OKAction = UIAlertAction(title: "OK, Got it! 👍", style:UIAlertActionStyle.Default, handler: nil)
         alert.addAction(OKAction)
         dispatch_async(dispatch_get_main_queue()) {
             self.presentViewController(alert, animated: true, completion: nil)
