@@ -9,30 +9,37 @@
 import UIKit
 import AVFoundation
 
-class TranslateViewController: BaseViewController, UITextFieldDelegate {
+class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var pickTargetLanguage: UIButton!
     @IBOutlet weak var speakOriginalText: UIButton!
     @IBOutlet weak var doTranslation: UIButton!
-    
     @IBOutlet weak var originalText: UITextField!
+
+    @IBOutlet weak var resultsTable: UITableView!
+
     var translateToLanguage : Language?
-    
+    var translation : Translation?
+
     let originalLanguage = LanguagesManager.sharedInstace.originalLanguage
 
-    var haveText : Bool {
+    var hasText : Bool {
         return !originalText.text!.isEmpty
     }
-    var haveTranslateToLanguage : Bool {
+    var hasTranslateToLanguage : Bool {
         return translateToLanguage != nil
     }
 
-    
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         originalText.delegate = self
+        resultsTable.delegate = self
+        resultsTable.dataSource = self
+        
+        //resultsTable.estimatedRowHeight = 100.0
+        //resultsTable.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -44,9 +51,8 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
                 forState: .Normal)
         }
         
-        
-        enableButton(doTranslation, enabled: haveText && haveTranslateToLanguage)
-        enableButton(speakOriginalText, enabled: haveText && haveTranslateToLanguage)
+        enableButton(doTranslation, enabled: hasText && hasTranslateToLanguage)
+        enableButton(speakOriginalText, enabled: hasText && hasTranslateToLanguage)
     }
     
     @IBAction func pickTargetLanguageTouchUpInside(sender: AnyObject) {
@@ -58,11 +64,14 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
         Glosbe.translate(originalLanguage, translateToLanguage!, originalText.text!) { trnResult in
             switch trnResult {
             case .Failure(let error):
+                self.stopActivityAnimation()
+                self.showWarning(title: "Something went wrong!😕", message: error.description)
                 print("An error ocurred: \(error)")
-            case .Success(let translation):
-                print("Success: \(translation)")
+            case .Success(let resultTranslation):
+                self.translation = resultTranslation
+                self.performResultsDisplay()
+                self.stopActivityAnimation()
             }
-            self.stopActivityAnimation()
         }
     }
     
@@ -79,9 +88,8 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
             enableButton(doTranslation, enabled: false)
         } else {
             enableButton(speakOriginalText, enabled: true)
-            enableButton(doTranslation, enabled: haveTranslateToLanguage)
+            enableButton(doTranslation, enabled: hasTranslateToLanguage)
         }
-
         return true
     }
     
@@ -89,11 +97,26 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate {
         return true
     }
     
+    // MARK: Conforming to UITableViewDataSource protocol
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return translation?.examples.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let translationCell = tableView.dequeueReusableCellWithIdentifier("translationViewCell",
+            forIndexPath: indexPath) as! TranslationTableViewCell
+        let example = translation!.examples[indexPath.row]
+        translationCell.configureCell(example.0, translatedText: example.1, liked: false)
+        return translationCell
+    }
+    
     // MARK: Helper functions
+    func performResultsDisplay() {
+        resultsTable.reloadData()
+    }
     
     func enableButton(button : UIButton, enabled: Bool) {
         button.enabled = enabled
     }
-    
 }
 
