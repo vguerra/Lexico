@@ -15,7 +15,7 @@ enum SBIdentifiers : String {
     case languageTableViewCell = "languageCell"
 }
 
-class LanguagePickerController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class LanguagePickerController : UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var languagesTableView: UITableView!
     
