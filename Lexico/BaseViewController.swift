@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 // SLViewController implements basic functionality which is
 // commnly used among all ViewControllers in this application
@@ -16,7 +17,11 @@ class BaseViewController : UIViewController {
     var activityIndicator : UIActivityIndicatorView! = nil
     var activityView : UIView! = nil
     var activityLabel : UILabel! = nil
-    
+
+    var sharedContext : NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance.managedObjectContext
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUIElements()
