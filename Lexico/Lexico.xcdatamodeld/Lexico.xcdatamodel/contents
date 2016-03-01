@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
+    <entity name="Favorite" representedClassName=".Favorite" syncable="YES">
+        <attribute name="originalPhrase" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="translatedPhrase" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="originalLanguage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Language" syncable="YES"/>
+        <relationship name="translateToLanguage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Language" syncable="YES"/>
+    </entity>
     <entity name="Language" representedClassName="Lexico.Language" syncable="YES">
         <attribute name="code" attributeType="String" syncable="YES"/>
         <attribute name="emoji" attributeType="String" syncable="YES"/>
@@ -11,7 +17,15 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="TranslationHistory" representedClassName=".TranslationHistory" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="word" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="originalLanguage" maxCount="1" deletionRule="Nullify" destinationEntity="Language" syncable="YES"/>
+        <relationship name="translateToLanguage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Language" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Language" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="TranslationHistory" positionX="-443" positionY="183" width="128" height="103"/>
+        <element name="Favorite" positionX="-450" positionY="-108" width="128" height="103"/>
     </elements>
 </model>
