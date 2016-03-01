@@ -29,6 +29,7 @@ class TranslationTableViewCell : UITableViewCell {
     
     // MARK: IBActions
     @IBAction func speakExample(sender: AnyObject) {
+        TextToSpeech.sharedInstance.speakText(translatedText.text!, language: translateToLanguage!)
     }
     
     @IBAction func likeButtonTouchUpInside(sender: AnyObject) {
@@ -40,16 +41,16 @@ class TranslationTableViewCell : UITableViewCell {
     }
     
     // MARK: Helper functions
-    func configureCell(originalText : String, translatedText : String, liked : Bool) {
+    func configureCell(originalText : String, translatedText : String, liked : Bool, language : Language) {
         likeButton.hidden = liked
         unlikeButton.hidden = !liked
         
         self.originalText.text = originalText
-        self.translatedText.text = translatedText        
+        self.translatedText.text = translatedText
+        translateToLanguage = language
     }
     
     private func toggleLikedState() {
         swap(&likeButton.hidden, &unlikeButton.hidden)
     }
-    
 }
