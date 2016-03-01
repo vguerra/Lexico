@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AVFoundation
+import CoreData
 
 class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -60,6 +60,8 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
     
     @IBAction func translateTouchUpInside(sender: AnyObject) {
+        // save translation
+        
         startActivityAnimation(message: "Loading Translations...")
         Glosbe.translate(originalLanguage, translateToLanguage!, originalText.text!) { trnResult in
             switch trnResult {
@@ -106,8 +108,17 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         let translationCell = tableView.dequeueReusableCellWithIdentifier("translationViewCell",
             forIndexPath: indexPath) as! TranslationTableViewCell
         let example = translation!.examples[indexPath.row]
-        translationCell.configureCell(example.0, translatedText: example.1, liked: false)
+        translationCell.configureCell(example.0, translatedText: example.1, liked: false, language: translateToLanguage!)
         return translationCell
+    }
+
+    // MARK: History functions
+    func saveTranslation() {
+        guard self.translation != nil else { return }
+        let savedTranslation = TranslationHistory(date: NSDate(),
+            word: originalText.text!, context: self.sharedContext)
+        savedTranslation.originalLanguage = originalLanguage
+        savedTranslation.translateToLanguage = translateToLanguage
     }
     
     // MARK: Helper functions
