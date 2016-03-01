@@ -23,7 +23,7 @@ class TextToSpeech : NSObject, AVSpeechSynthesizerDelegate {
     //        speechSynthesizer.speakUtterance(utterance)
     //    }
     
-    override init() {
+    private override init() {
         super.init()
         //speechSynthesizer.delegate = TextToSpeech.sharedInstance
     }
