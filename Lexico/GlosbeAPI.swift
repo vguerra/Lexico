@@ -8,15 +8,6 @@
 
 import Alamofire
 
-/// Helper struct that encapsulates interaction w/Glosbe API
-
-struct Translation {
-    let from : String
-    let dest : String
-    let phrases : [String]
-    let examples : [(String, String)]
-}
-
 typealias TrnResult = RResult<Translation, NSError>.t
 
 struct Glosbe {
