@@ -4,12 +4,4 @@ https://glosbe.com/a-api
 
 #RESOURCES
 
-Icons: 
-
-## Noun project
-Translation icon by Joe Mortell
-
-
-Glyphish website
-
-https://icons8.com/
+Icons: https://icons8.com/
