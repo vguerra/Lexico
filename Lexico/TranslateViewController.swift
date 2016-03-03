@@ -68,7 +68,6 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
             case .Failure(let error):
                 self.stopActivityAnimation()
                 self.showWarning(title: "Something went wrong!😕", message: error.description)
-                print("An error ocurred: \(error)")
             case .Success(let resultTranslation):
                 self.translation = resultTranslation
                 self.saveTranslation()
