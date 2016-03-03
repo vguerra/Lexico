@@ -18,8 +18,18 @@ class BaseViewController : UIViewController {
     var activityView : UIView! = nil
     var activityLabel : UILabel! = nil
 
+    let originalLanguage = LanguagesManager.sharedInstace.originalLanguage
+
+    var savedTranslateToLanguage : Language? {
+        return UserPreferences.getTranslateToLanguage()
+    }
+
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance.managedObjectContext
+    }
+
+    func saveContext() {
+        CoreDataStackManager.sharedInstance.saveContext()
     }
 
     override func viewDidLoad() {
