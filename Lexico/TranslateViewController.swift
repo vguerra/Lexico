@@ -21,8 +21,6 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     var translateToLanguage : Language?
     var translation : Translation?
 
-    let originalLanguage = LanguagesManager.sharedInstace.originalLanguage
-
     var hasText : Bool {
         return !originalText.text!.isEmpty
     }
@@ -40,13 +38,15 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         
         //resultsTable.estimatedRowHeight = 100.0
         //resultsTable.rowHeight = UITableViewAutomaticDimension
+
+        navigationItem.title = "Translate"
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let savedLanguage = UserPreferences.getTranslateToLanguage() {
-            translateToLanguage = savedLanguage
+
+        translateToLanguage = savedTranslateToLanguage
+        if let savedLanguage = translateToLanguage {
             pickTargetLanguage.setTitle(savedLanguage.nameAndFlag,
                 forState: .Normal)
         }
@@ -71,6 +71,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
                 print("An error ocurred: \(error)")
             case .Success(let resultTranslation):
                 self.translation = resultTranslation
+                self.saveTranslation()
                 self.performResultsDisplay()
                 self.stopActivityAnimation()
             }
@@ -119,6 +120,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
             word: originalText.text!, context: self.sharedContext)
         savedTranslation.originalLanguage = originalLanguage
         savedTranslation.translateToLanguage = translateToLanguage
+        saveContext()
     }
     
     // MARK: Helper functions
