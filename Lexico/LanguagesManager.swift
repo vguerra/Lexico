@@ -62,15 +62,26 @@ class LanguagesManager {
     }
 
     private func populateLanguages() {
+        // English has to be first in the list. It is our
+        // default language for the App.
         let languages : [[String]] = [
             ["eng", "en_US", "English", "🇬🇧"],
-            ["spa", "es_ES", "Spanish", "🇪🇸"]
+            ["spa", "es_ES", "Spanish", "🇪🇸"],
+            ["fra", "fr-FR", "French", "🇫🇷"],
+            ["ger", "de-DE", "German", "🇧🇪"],
+            ["ita", "it-IT", "Italian", "🇮🇹"],
+            ["por", "pt-PT", "Portuguese", "🇧🇷"],
+            ["rus", "ru-RU", "Rusian", "🇷🇺"],
+            ["pol", "pl-PL", "Polish", "🇵🇱"],
+            ["tur", "tr-TR", "Turkish", "🇹🇷"],
+            ["rum", "ro-RO", "Romanian", "🇷🇴"],
+            ["swe", "sv-SE", "Swedish", "🇸🇪"]
         ]
 
-        let _ = languages.map() {
-            Language(code: $0[0], tag: $0[1], name: $0[2], emoji: $0[3], context: sharedContext)
+        languages.forEach {
+            let _ = Language(code: $0[0], tag: $0[1], name: $0[2], emoji: $0[3], context: sharedContext)
         }
-        debugPrint("Created languages")
+
         CoreDataStackManager.sharedInstance.saveContext()
     }
 }

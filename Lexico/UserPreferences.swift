@@ -21,7 +21,7 @@ class UserPreferences {
     }
     
     static func getTranslateToLanguageIndex() -> Int {
-        return (NSKeyedUnarchiver.unarchiveObjectWithFile(preferencesFilePath) as? Int) ?? -1
+        return (NSKeyedUnarchiver.unarchiveObjectWithFile(preferencesFilePath) as? Int) ?? 0
     }
     
     static func getTranslateToLanguage() -> Language? {
