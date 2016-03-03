@@ -21,7 +21,7 @@ class HistoryViewController : BaseViewController,
 
     lazy var historyController : NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "TranslationHistory")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         fetchRequest.predicate = NSPredicate(format: "originalLanguage == %@ and translateToLanguage = %@",
             self.originalLanguage, self.savedTranslateToLanguage!)
 
@@ -45,10 +45,9 @@ class HistoryViewController : BaseViewController,
         navigationItem.title = "Your Translation history"
         deleteAllButton.enabled = false
 
-        historyController.delegate = self
-
         if let _ = savedTranslateToLanguage {
             let _ = try? historyController.performFetch()
+            historyController.delegate = self
             historyTable.reloadData()
         }
     }

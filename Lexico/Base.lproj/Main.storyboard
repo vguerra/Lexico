@@ -326,6 +326,38 @@
             </objects>
             <point key="canvasLocation" x="1316" y="-345"/>
         </scene>
+        <!--Favorites Scene-->
+        <scene sceneID="Ehf-yc-NHS">
+            <objects>
+                <tableViewController title="Favorites Scene" id="tDP-5e-akV" customClass="FavoritesViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uZf-zg-lb3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteViewCell" id="lF9-6w-ntC">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lF9-6w-ntC" id="BKi-sb-qL5">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="tDP-5e-akV" id="pQd-5v-An9"/>
+                            <outlet property="delegate" destination="tDP-5e-akV" id="XPU-Al-1Ud"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="sBL-WK-AVo"/>
+                    <connections>
+                        <outlet property="favoritesTable" destination="uZf-zg-lb3" id="Lgc-xM-Myr"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3OT-qV-pu6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1351" y="450"/>
+        </scene>
         <!--History Scene-->
         <scene sceneID="s3W-PN-sXZ">
             <objects>
@@ -460,6 +492,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="tDP-5e-akV" kind="relationship" relationship="rootViewController" id="aqD-NW-8g2"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PMa-lw-Igf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
