@@ -12,6 +12,7 @@ import CoreData
 class Favorite : NSManagedObject {
     @NSManaged var originalPhrase : String?
     @NSManaged var translatedPhrase : String?
+    @NSManaged var date : NSDate
     @NSManaged var originalLanguage : Language?
     @NSManaged var translateToLanguage : Language?
 
@@ -23,6 +24,7 @@ class Favorite : NSManagedObject {
         let entity = NSEntityDescription.entityForName("Favorite", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
 
+        self.date = NSDate()
         self.originalPhrase = originalPhrase
         self.translatedPhrase = translatedPhrase
     }
