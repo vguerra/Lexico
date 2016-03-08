@@ -108,8 +108,13 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         let translationCell = tableView.dequeueReusableCellWithIdentifier("translationViewCell",
             forIndexPath: indexPath) as! TranslationTableViewCell
         let example = translation!.examples[indexPath.row]
-        translationCell.configureCell(example.0, translatedText: example.1, liked: false, language: translateToLanguage!)
+        translationCell.configureCell(example.0, translatedText: example.1, liked: false, language: translateToLanguage!, row: indexPath.row)
+        translationCell.likeCallback = self.handleLike
         return translationCell
+    }
+
+    func handleLike(row : Int, liked: Bool) {
+        print("just liked \(row)")
     }
 
     // MARK: History functions

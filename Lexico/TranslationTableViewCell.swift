@@ -18,7 +18,9 @@ class TranslationTableViewCell : UITableViewCell {
     @IBOutlet weak var translatedText: UILabel!
     
     var translateToLanguage : Language?
-    
+    var likeCallback : ((row : Int , liked : Bool) -> Void)?
+    var row : Int?
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -41,16 +43,19 @@ class TranslationTableViewCell : UITableViewCell {
     }
     
     // MARK: Helper functions
-    func configureCell(originalText : String, translatedText : String, liked : Bool, language : Language) {
+    func configureCell(originalText : String, translatedText : String, liked : Bool, language : Language, row : Int) {
         likeButton.hidden = liked
         unlikeButton.hidden = !liked
         
         self.originalText.text = originalText
         self.translatedText.text = translatedText
+        self.row = row
         translateToLanguage = language
     }
     
     private func toggleLikedState() {
+        print("toggling like state")
         swap(&likeButton.hidden, &unlikeButton.hidden)
+        likeCallback!(row: row!, liked: likeButton.hidden)
     }
 }
