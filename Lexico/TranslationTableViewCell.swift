@@ -54,8 +54,7 @@ class TranslationTableViewCell : UITableViewCell {
     }
     
     private func toggleLikedState() {
-        print("toggling like state")
         swap(&likeButton.hidden, &unlikeButton.hidden)
-        likeCallback!(row: row!, liked: likeButton.hidden)
+        likeCallback?(row: row!, liked: likeButton.hidden)
     }
 }

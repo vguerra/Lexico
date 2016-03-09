@@ -21,6 +21,8 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     var translateToLanguage : Language?
     var translation : Translation?
 
+    var likedExamples : [Int : Favorite] = [:]
+
     var hasText : Bool {
         return !originalText.text!.isEmpty
     }
@@ -65,9 +67,9 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         startActivityAnimation(message: "Loading Translations...")
         Glosbe.translate(originalLanguage, translateToLanguage!, originalText.text!) { trnResult in
             switch trnResult {
-            case .Failure(let error):
+            case .Failure(_):
                 self.stopActivityAnimation()
-                self.showWarning(title: "Something went wrong!😕", message: error.description)
+                self.showWarning(title: "Something went wrong!😕", message: "please try again later!")
             case .Success(let resultTranslation):
                 self.translation = resultTranslation
                 self.saveTranslation()
@@ -114,7 +116,17 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
 
     func handleLike(row : Int, liked: Bool) {
-        print("just liked \(row)")
+        if liked {
+            let example = translation!.examples[row]
+            let favoriteExample = Favorite(originalPhrase: example.0, translatedPhrase: example.1, context: self.sharedContext)
+            favoriteExample.originalLanguage = originalLanguage
+            favoriteExample.translateToLanguage = translateToLanguage!
+            likedExamples.updateValue(favoriteExample, forKey: row)
+        } else {
+            sharedContext.deleteObject(likedExamples[row]!)
+            likedExamples.removeValueForKey(row)
+        }
+        saveContext()
     }
 
     // MARK: History functions
@@ -129,6 +141,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     
     // MARK: Helper functions
     func performResultsDisplay() {
+        likedExamples.removeAll()
         resultsTable.reloadData()
     }
     
