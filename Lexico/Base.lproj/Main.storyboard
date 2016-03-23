@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uNG-7s-ltF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uNG-7s-ltF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -349,8 +349,21 @@
                             <outlet property="delegate" destination="tDP-5e-akV" id="XPU-Al-1Ud"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="sBL-WK-AVo"/>
+                    <navigationItem key="navigationItem" id="sBL-WK-AVo">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="3CW-VP-ktO">
+                            <connections>
+                                <action selector="activateEditMode:" destination="tDP-5e-akV" id="4Ip-Fg-cYG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Clear All" id="mQW-uC-zSd">
+                            <connections>
+                                <action selector="deleteAll:" destination="tDP-5e-akV" id="VCd-LD-4bl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="deleteAllButton" destination="mQW-uC-zSd" id="xM8-FW-1H3"/>
+                        <outlet property="editDoneButton" destination="3CW-VP-ktO" id="fjB-V7-tLJ"/>
                         <outlet property="favoritesTable" destination="uZf-zg-lb3" id="Lgc-xM-Myr"/>
                     </connections>
                 </tableViewController>
@@ -483,6 +496,92 @@
             </objects>
             <point key="canvasLocation" x="2236" y="-657"/>
         </scene>
+        <!--Speak Text Scene-->
+        <scene sceneID="Jsg-uE-bgl">
+            <objects>
+                <viewController storyboardIdentifier="speakTextViewController" id="Qw2-zS-vK6" userLabel="Speak Text Scene" customClass="SpeakTextViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9vT-wO-Yen"/>
+                        <viewControllerLayoutGuide type="bottom" id="hoW-iV-ro4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jnK-ar-pyd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDu-dE-brx" userLabel="playOriginal">
+                                <rect key="frame" x="555" y="77" width="25" height="25"/>
+                                <state key="normal" image="Play"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yTe-r6-kc1" userLabel="pauseOrigial">
+                                <rect key="frame" x="555" y="77" width="25" height="25"/>
+                                <state key="normal" image="Pause"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9J-Qt-V4c" userLabel="playTranslated">
+                                <rect key="frame" x="555" y="145" width="25" height="25"/>
+                                <state key="normal" image="Play"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWw-Cu-QX9" userLabel="pauseTranslated">
+                                <rect key="frame" x="555" y="145" width="25" height="25"/>
+                                <state key="normal" image="Pause"/>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Origianl Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4WJ-5f-Iax" userLabel="Original Text">
+                                <rect key="frame" x="20" y="60" width="527" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="LYZ-cB-jS1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Translated Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ptv-AY-31H" userLabel="Translated Text">
+                                <rect key="frame" x="20" y="127" width="527" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vai-Vg-vG6" userLabel="Close">
+                                <rect key="frame" x="555" y="28" width="25" height="25"/>
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="closePopover:" destination="Qw2-zS-vK6" eventType="touchUpInside" id="SP1-9f-zgo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4WJ-5f-Iax" firstAttribute="top" secondItem="9vT-wO-Yen" secondAttribute="bottom" constant="40" id="0sG-70-B3S"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hDu-dE-brx" secondAttribute="trailing" id="0zl-vv-G0t"/>
+                            <constraint firstItem="Vai-Vg-vG6" firstAttribute="top" secondItem="9vT-wO-Yen" secondAttribute="bottom" constant="8" id="3oV-eg-636"/>
+                            <constraint firstItem="yTe-r6-kc1" firstAttribute="top" secondItem="hDu-dE-brx" secondAttribute="top" id="6o1-kv-s2N"/>
+                            <constraint firstItem="X9J-Qt-V4c" firstAttribute="centerY" secondItem="Ptv-AY-31H" secondAttribute="centerY" id="BWN-cs-YtH"/>
+                            <constraint firstItem="Ptv-AY-31H" firstAttribute="top" secondItem="4WJ-5f-Iax" secondAttribute="bottom" constant="7" id="IKb-V6-lbL"/>
+                            <constraint firstItem="hDu-dE-brx" firstAttribute="centerY" secondItem="4WJ-5f-Iax" secondAttribute="centerY" id="JpI-wn-1jg"/>
+                            <constraint firstItem="DWw-Cu-QX9" firstAttribute="top" secondItem="X9J-Qt-V4c" secondAttribute="top" id="KNs-gp-7pf"/>
+                            <constraint firstItem="yTe-r6-kc1" firstAttribute="trailing" secondItem="hDu-dE-brx" secondAttribute="trailing" id="KtN-IM-BSl"/>
+                            <constraint firstItem="hDu-dE-brx" firstAttribute="leading" secondItem="4WJ-5f-Iax" secondAttribute="trailing" constant="8" id="OTY-yP-aFx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vai-Vg-vG6" secondAttribute="trailing" id="T3e-ps-FkY"/>
+                            <constraint firstItem="DWw-Cu-QX9" firstAttribute="trailing" secondItem="X9J-Qt-V4c" secondAttribute="trailing" id="UaV-C4-2PM"/>
+                            <constraint firstItem="Ptv-AY-31H" firstAttribute="width" secondItem="4WJ-5f-Iax" secondAttribute="width" id="WkM-AR-y84"/>
+                            <constraint firstItem="Ptv-AY-31H" firstAttribute="leading" secondItem="4WJ-5f-Iax" secondAttribute="leading" id="cNP-Jd-PEQ"/>
+                            <constraint firstItem="Ptv-AY-31H" firstAttribute="height" secondItem="4WJ-5f-Iax" secondAttribute="height" id="ePH-j6-wIO"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="4WJ-5f-Iax" secondAttribute="leading" id="j4z-vD-JsL"/>
+                            <constraint firstItem="X9J-Qt-V4c" firstAttribute="trailing" secondItem="hDu-dE-brx" secondAttribute="trailing" id="jRN-x3-QXp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="Vai-Vg-vG6" id="fEG-fo-eU3"/>
+                        <outlet property="originalText" destination="4WJ-5f-Iax" id="CMR-Wy-7GK"/>
+                        <outlet property="pauseOriginal" destination="yTe-r6-kc1" id="1mr-3n-4ae"/>
+                        <outlet property="pauseTranslated" destination="DWw-Cu-QX9" id="s0b-Qw-FBn"/>
+                        <outlet property="playOriginal" destination="hDu-dE-brx" id="pIK-0u-mqo"/>
+                        <outlet property="playTranslated" destination="X9J-Qt-V4c" id="QAQ-Ij-cSM"/>
+                        <outlet property="translatedText" destination="Ptv-AY-31H" id="lwW-le-bju"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t6v-aV-CF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2293" y="104"/>
+        </scene>
         <!--Favorites-->
         <scene sceneID="do0-Ty-LNL">
             <objects>
@@ -519,9 +618,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Close" width="25" height="25"/>
         <image name="History" width="25" height="25"/>
         <image name="Like" width="25" height="25"/>
         <image name="LikeFilled" width="25" height="25"/>
+        <image name="Pause" width="25" height="25"/>
+        <image name="Play" width="25" height="25"/>
         <image name="Right" width="26" height="26"/>
         <image name="RightArrow" width="25" height="25"/>
         <image name="Speak" width="26" height="26"/>
