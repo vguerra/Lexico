@@ -16,6 +16,9 @@ class FavoritesViewController : BaseViewController,
 
     @IBOutlet var favoritesTable: UITableView!
 
+    @IBOutlet weak var editDoneButton: UIBarButtonItem!
+    @IBOutlet weak var deleteAllButton: UIBarButtonItem!
+
     lazy var favoritesController : NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Favorite")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
@@ -36,6 +39,9 @@ class FavoritesViewController : BaseViewController,
 
         navigationItem.title = "Your Favorites"
 
+        deleteAllButton.enabled = false
+
+
         if let _ = savedTranslateToLanguage {
             let _ = try? favoritesController.performFetch()
             favoritesController.delegate = self
@@ -43,6 +49,41 @@ class FavoritesViewController : BaseViewController,
         }
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tryResetEditMode()
+    }
+
+    
+    @IBAction func activateEditMode(sender: AnyObject) {
+        toggleEditMode()
+    }
+
+    @IBAction func deleteAll(sender: AnyObject) {
+        favoritesController.fetchedObjects?.forEach {
+            sharedContext.deleteObject($0 as! NSManagedObject)
+        }
+        saveContext()
+    }
+
+    func toggleEditMode() {
+        let editable = favoritesController.fetchedObjects!.count > 0
+        editDoneButton.enabled = editable
+        favoritesTable.editing = editable && !favoritesTable.editing
+        editDoneButton.title = (editable && favoritesTable.editing) ? "Done" : "Edit"
+        deleteAllButton.enabled = editable && favoritesTable.editing
+    }
+
+    func tryResetEditMode() {
+        if favoritesController.fetchedObjects!.count == 0 {
+            editDoneButton.enabled = false
+            deleteAllButton.enabled = false
+            editDoneButton.title = "Edit"
+            favoritesTable.editing = false
+        } else {
+            editDoneButton.enabled = true
+        }
+    }
 
     // MARK: Conforming to NSFetchedResultsControllerDelegate
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
@@ -74,8 +115,10 @@ class FavoritesViewController : BaseViewController,
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let favoriteCell = tableView.dequeueReusableCellWithIdentifier("favoriteViewCell", forIndexPath: indexPath)
         let favoriteEntry = favoritesController.objectAtIndexPath(indexPath) as! Favorite
-
-        // TODO : customize entry
+        //favoriteCell.configureCell(favoriteEntry.originalPhrase!, translatedText: favoriteEntry.translateToLanguage,
+        //    liked: true, language: favoriteEntry.translateToLanguage!, row: indexPath.row)
+        //favoriteCell.likeCallback = nil
+        favoriteCell.textLabel?.text = favoriteEntry.translatedPhrase
         return favoriteCell
     }
 
