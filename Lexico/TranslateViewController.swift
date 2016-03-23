@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
+class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var pickTargetLanguage: UIButton!
     @IBOutlet weak var speakOriginalText: UIButton!
@@ -80,7 +80,17 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
     
     @IBAction func speakFromLanguageTouchUpInside(sender: AnyObject) {
-        speakText(originalText.text!, inLanguage: originalLanguage)
+        //speakText(originalText.text!, inLanguage: originalLanguage)
+
+        let speakTextController = self.storyboard!.instantiateViewControllerWithIdentifier("speakTextViewController")
+
+        speakTextController.preferredContentSize = CGSizeMake(self.view.bounds.size.width*0.70, self.view.bounds.size.height/3)
+        speakTextController.modalPresentationStyle = .Popover
+        let controller = speakTextController.popoverPresentationController!
+        controller.delegate = self
+        controller.sourceView = speakOriginalText
+
+        self.presentViewController(speakTextController, animated: true, completion: nil)
     }
     
     
@@ -127,6 +137,15 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
             likedExamples.removeValueForKey(row)
         }
         saveContext()
+    }
+
+    // MARK: Conforming to UIPopoverPresentationControllerDelegate
+    func popoverPresentationController(popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverToRect rect: UnsafeMutablePointer<CGRect>, inView view: AutoreleasingUnsafeMutablePointer<UIView?>) {
+        print("using rect")
+    }
+
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
 
     // MARK: History functions
