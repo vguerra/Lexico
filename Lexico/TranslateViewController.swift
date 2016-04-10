@@ -80,20 +80,32 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
     
     @IBAction func speakFromLanguageTouchUpInside(sender: AnyObject) {
-        //speakText(originalText.text!, inLanguage: originalLanguage)
+        speakText(originalText.text!, translatedText: nil)
+    }
 
-        let speakTextController = self.storyboard!.instantiateViewControllerWithIdentifier("speakTextViewController")
+    // MARK: Speaking text Pop-over
+
+    func speakText(originalText : String?, translatedText : String?) {
+        let speakTextController = self.storyboard!.instantiateViewControllerWithIdentifier("speakTextViewController") as! SpeakTextViewController
 
         speakTextController.preferredContentSize = CGSizeMake(self.view.bounds.size.width*0.70, self.view.bounds.size.height/3)
         speakTextController.modalPresentationStyle = .Popover
+
+        speakTextController.originalTextParam = originalText
+        speakTextController.originalLanguage = originalLanguage
+
+        speakTextController.translatedTextParam = translatedText
+        speakTextController.translateToLanguage = translateToLanguage
+
+        // pop size configuration
         let controller = speakTextController.popoverPresentationController!
         controller.delegate = self
         controller.sourceView = speakOriginalText
 
         self.presentViewController(speakTextController, animated: true, completion: nil)
+
+
     }
-    
-    
     // MARK: Conforming to UITextFieldDelegate
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 
@@ -120,9 +132,15 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         let translationCell = tableView.dequeueReusableCellWithIdentifier("translationViewCell",
             forIndexPath: indexPath) as! TranslationTableViewCell
         let example = translation!.examples[indexPath.row]
-        translationCell.configureCell(example.0, translatedText: example.1, liked: false, language: translateToLanguage!, row: indexPath.row)
+        translationCell.configureCell(example.originalText, translatedText: example.translatedText, liked: false, language: translateToLanguage!, row: indexPath.row)
         translationCell.likeCallback = self.handleLike
+        translationCell.speakCallback = self.handleCellSpeak
         return translationCell
+    }
+
+    func handleCellSpeak(row : Int) {
+        let example = translation!.examples[row]
+        speakText(example.originalText, translatedText: example.translatedText)
     }
 
     func handleLike(row : Int, liked: Bool) {

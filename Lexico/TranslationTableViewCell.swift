@@ -19,6 +19,8 @@ class TranslationTableViewCell : UITableViewCell {
     
     var translateToLanguage : Language?
     var likeCallback : ((row : Int , liked : Bool) -> Void)?
+    var speakCallback : ((row : Int) -> Void)?
+
     var row : Int?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

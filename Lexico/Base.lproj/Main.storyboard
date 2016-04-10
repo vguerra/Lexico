@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="-406" y="-5"/>
         </scene>
-        <!--Translate-->
+        <!--Lexico Navigation-->
         <scene sceneID="sXC-lx-Ost">
             <objects>
-                <navigationController id="hJO-BQ-Myg" sceneMemberID="viewController">
+                <navigationController id="hJO-BQ-Myg" userLabel="Lexico Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Translate" image="Translate" selectedImage="Translate" id="iaX-2r-iJl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jxp-bX-VkX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -43,10 +43,10 @@
             </objects>
             <point key="canvasLocation" x="466" y="-288"/>
         </scene>
-        <!--Translate Scene-->
+        <!--Translate-->
         <scene sceneID="3cZ-QB-akF">
             <objects>
-                <viewController title="Translate" id="vsF-nT-5Ii" userLabel="Translate Scene" customClass="TranslateViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Translate" id="vsF-nT-5Ii" userLabel="Translate" customClass="TranslateViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fNI-im-qfK"/>
                         <viewControllerLayoutGuide type="bottom" id="jX3-iF-p5H"/>
@@ -326,10 +326,10 @@
             </objects>
             <point key="canvasLocation" x="1316" y="-345"/>
         </scene>
-        <!--Favorites Scene-->
+        <!--Favorites-->
         <scene sceneID="Ehf-yc-NHS">
             <objects>
-                <tableViewController title="Favorites Scene" id="tDP-5e-akV" customClass="FavoritesViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Favorites" id="tDP-5e-akV" customClass="FavoritesViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uZf-zg-lb3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -371,10 +371,10 @@
             </objects>
             <point key="canvasLocation" x="1351" y="450"/>
         </scene>
-        <!--History Scene-->
+        <!--History-->
         <scene sceneID="s3W-PN-sXZ">
             <objects>
-                <tableViewController title="History Scene" id="EOJ-dx-BO2" customClass="HistoryViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="History" id="EOJ-dx-BO2" customClass="HistoryViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="amC-r8-gK6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -432,10 +432,10 @@
             </objects>
             <point key="canvasLocation" x="1384" y="1403"/>
         </scene>
-        <!--Pick Language Scene-->
+        <!--Pick Language-->
         <scene sceneID="ULi-yl-Ma7">
             <objects>
-                <viewController title="Pick the Language" id="XcE-tj-PFi" userLabel="Pick Language Scene" customClass="LanguagePickerController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Pick the Language" id="XcE-tj-PFi" userLabel="Pick Language" customClass="LanguagePickerController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ohx-IX-MEs"/>
                         <viewControllerLayoutGuide type="bottom" id="ohE-1j-MfD"/>
@@ -496,10 +496,10 @@
             </objects>
             <point key="canvasLocation" x="2236" y="-657"/>
         </scene>
-        <!--Speak Text Scene-->
+        <!--Speak Text-->
         <scene sceneID="Jsg-uE-bgl">
             <objects>
-                <viewController storyboardIdentifier="speakTextViewController" id="Qw2-zS-vK6" userLabel="Speak Text Scene" customClass="SpeakTextViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="speakTextViewController" id="Qw2-zS-vK6" userLabel="Speak Text" customClass="SpeakTextViewController" customModule="Lexico" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9vT-wO-Yen"/>
                         <viewControllerLayoutGuide type="bottom" id="hoW-iV-ro4"/>
@@ -511,18 +511,30 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDu-dE-brx" userLabel="playOriginal">
                                 <rect key="frame" x="555" y="77" width="25" height="25"/>
                                 <state key="normal" image="Play"/>
+                                <connections>
+                                    <action selector="playOriginalTouchUp:" destination="Qw2-zS-vK6" eventType="touchUpInside" id="97A-eg-TCk"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yTe-r6-kc1" userLabel="pauseOrigial">
                                 <rect key="frame" x="555" y="77" width="25" height="25"/>
                                 <state key="normal" image="Pause"/>
+                                <connections>
+                                    <action selector="pauseOriginalTouchUp:" destination="Qw2-zS-vK6" eventType="touchUpInside" id="zg6-fd-550"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9J-Qt-V4c" userLabel="playTranslated">
                                 <rect key="frame" x="555" y="145" width="25" height="25"/>
                                 <state key="normal" image="Play"/>
+                                <connections>
+                                    <action selector="playTranslatedTouchUp:" destination="Qw2-zS-vK6" eventType="touchUpInside" id="u79-lR-uik"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWw-Cu-QX9" userLabel="pauseTranslated">
                                 <rect key="frame" x="555" y="145" width="25" height="25"/>
                                 <state key="normal" image="Pause"/>
+                                <connections>
+                                    <action selector="pauseTranslatedTouchUp:" destination="Qw2-zS-vK6" eventType="touchUpInside" id="z7D-Tz-zCs"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Origianl Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4WJ-5f-Iax" userLabel="Original Text">
                                 <rect key="frame" x="20" y="60" width="527" height="60"/>
