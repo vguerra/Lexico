@@ -77,13 +77,7 @@ class BaseViewController : UIViewController {
             self.activityIndicator.stopAnimating()
             self.activityView.hidden = true
         }
-    }
-    
-    // MARK: Helper functions
-    func speakText(text: String, inLanguage: Language) {
-        TextToSpeech.sharedInstance.speakText(text, language: inLanguage)
-    }
-
+    }    
 }
 
 
