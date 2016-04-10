@@ -12,5 +12,5 @@ struct Translation {
     let from : String
     let dest : String
     let phrases : [String]
-    let examples : [(String, String)]
+    let examples : [(originalText : String, translatedText : String)]
 }

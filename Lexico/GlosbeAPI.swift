@@ -56,7 +56,7 @@ struct Glosbe {
                 // processing example array of objects
                 let exampleObjs = json["examples"] as? [[String : AnyObject]]
                 let examples = exampleObjs?.map() { example in
-                    return (example["first"] as! String, example["second"] as! String)
+                    return (originalText: example["first"] as! String, translatedText: example["second"] as! String)
                 }
                 
                 return .Success(Translation(from: from, dest: dest, phrases: phrases, examples: examples ?? []))
