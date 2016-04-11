@@ -44,6 +44,7 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
 
     //MARK : IBActions
     @IBAction func closePopover(sender: AnyObject) {
+        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -109,10 +110,6 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
             playTranslated.hidden = true
             translatedText.hidden = true
         }
-
-        pauseOriginal.hidden = true
-        playTranslated.hidden = true
-        pauseTranslated.hidden = true
     }
 
     // MARK: Speak text and conforming to AVSpeechSynthesizerDelegate
@@ -136,6 +133,4 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
         configure()
     }
-
-
 }
