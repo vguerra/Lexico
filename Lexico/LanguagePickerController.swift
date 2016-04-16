@@ -37,10 +37,6 @@ final class LanguagePickerController : UIViewController, UITableViewDataSource, 
         
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
     // MARK: IBActions
     @IBAction func dismissController(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
