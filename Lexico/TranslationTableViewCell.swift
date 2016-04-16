@@ -33,7 +33,7 @@ class TranslationTableViewCell : UITableViewCell {
     
     // MARK: IBActions
     @IBAction func speakExample(sender: AnyObject) {
-        TextToSpeech.sharedInstance.speakText(translatedText.text!, language: translateToLanguage!)
+        speakCallback?(row: row!)
     }
     
     @IBAction func likeButtonTouchUpInside(sender: AnyObject) {
