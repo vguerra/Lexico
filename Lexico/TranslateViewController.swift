@@ -80,12 +80,12 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
     
     @IBAction func speakFromLanguageTouchUpInside(sender: AnyObject) {
-        speakText(originalText.text!, translatedText: nil)
+        speakText(sender as! UIView, originalText: originalText.text!, translatedText: nil)
     }
 
     // MARK: Speaking text Pop-over
 
-    func speakText(originalText : String?, translatedText : String?) {
+    func speakText(sender: UIView, originalText : String?, translatedText : String?) {
         let speakTextController = self.storyboard!.instantiateViewControllerWithIdentifier("speakTextViewController") as! SpeakTextViewController
 
         speakTextController.preferredContentSize = CGSizeMake(self.view.bounds.size.width*0.70, self.view.bounds.size.height/3)
@@ -100,7 +100,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         // pop size configuration
         let controller = speakTextController.popoverPresentationController!
         controller.delegate = self
-        controller.sourceView = speakOriginalText
+        controller.sourceView = sender
 
         self.presentViewController(speakTextController, animated: true, completion: nil)
 
@@ -138,9 +138,19 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         return translationCell
     }
 
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 150
+    }
+
     func handleCellSpeak(row : Int) {
         let example = translation!.examples[row]
-        speakText(example.originalText, translatedText: example.translatedText)
+        let cellIndexPath = NSIndexPath(forRow: row, inSection: 0)
+
+        let translationCell = resultsTable.dequeueReusableCellWithIdentifier("translationViewCell",
+                                                                          forIndexPath: cellIndexPath) as! TranslationTableViewCell
+
+        speakText(translationCell.speakText,
+                  originalText: example.originalText, translatedText: example.translatedText)
     }
 
     func handleLike(row : Int, liked: Bool) {
