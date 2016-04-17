@@ -12,6 +12,7 @@ typealias TrnResult = RResult<Translation, NSError>.t
 
 struct Glosbe {
     private static let apiURL = "https://glosbe.com/gapi/"
+    private static let AdmitedExampleLength = 300
     private static let baseUrlParamDict = [
         "tm" : "true",
         "format" : "json"
@@ -55,7 +56,13 @@ struct Glosbe {
                 
                 // processing example array of objects
                 let exampleObjs = json["examples"] as? [[String : AnyObject]]
-                let examples = exampleObjs?.map() { example in
+            let examples = exampleObjs?.flatMap() { example -> (originalText: String , translatedText : String)? in
+                    let first = example["first"] as! String
+                    let second = example["second"] as! String
+
+                    if second.characters.count > AdmitedExampleLength || first.characters.count > AdmitedExampleLength {
+                        return nil
+                    }
                     return (originalText: example["first"] as! String, translatedText: example["second"] as! String)
                 }
                 
