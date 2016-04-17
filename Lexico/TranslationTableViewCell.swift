@@ -45,12 +45,19 @@ class TranslationTableViewCell : UITableViewCell {
     }
 
     // MARK: Helper functions
-    func configureCell(originalText : String, translatedText : String, liked : Bool, language : Language, row : Int) {
-        likeButton.hidden = liked
-        unlikeButton.hidden = !liked
+    func configureCell(phrases : [String], originalText : String, translatedText : String, liked : Bool, language : Language, row : Int) {
+        if phrases.count > 0 {
+            likeButton.hidden = liked
+            unlikeButton.hidden = !liked
+            self.originalText.attributedText = Helpers.generateAttributedText(originalText)
+            self.translatedText.attributedText = Helpers.generateAttributedText(translatedText)
+        } else {
+            self.originalText.attributedText = Helpers.generateAttributedText(phrases.joinWithSeparator(","))
+            self.translatedText.hidden = true
+            likeButton.hidden = true
+            unlikeButton.hidden = true
+        }
 
-        self.originalText.attributedText = Helpers.generateAttributedText(originalText)
-        self.translatedText.attributedText = Helpers.generateAttributedText(translatedText)
         self.row = row
         translateToLanguage = language
     }

@@ -33,37 +33,37 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         originalText.delegate = self
         resultsTable.delegate = self
         resultsTable.dataSource = self
-        
+
         //resultsTable.estimatedRowHeight = 100.0
         //resultsTable.rowHeight = UITableViewAutomaticDimension
 
         navigationItem.title = "Translate"
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
         translateToLanguage = savedTranslateToLanguage
         if let savedLanguage = translateToLanguage {
             pickTargetLanguage.setTitle(savedLanguage.nameAndFlag,
-                forState: .Normal)
+                                        forState: .Normal)
         }
-        
+
         enableButton(doTranslation, enabled: hasText && hasTranslateToLanguage)
         enableButton(speakOriginalText, enabled: hasText && hasTranslateToLanguage)
     }
-    
+
     @IBAction func pickTargetLanguageTouchUpInside(sender: AnyObject) {
         performSegueWithIdentifier("presentLanguagePicker", sender: nil)
     }
-    
+
     @IBAction func translateTouchUpInside(sender: AnyObject) {
         // save translation
-        
+
         startActivityAnimation(message: "Loading Translations...")
         Glosbe.translate(originalLanguage, translateToLanguage!, originalText.text!) { trnResult in
             switch trnResult {
@@ -78,7 +78,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
             }
         }
     }
-    
+
     @IBAction func speakFromLanguageTouchUpInside(sender: AnyObject) {
         speakText(sender as! UIView, originalText: originalText.text!, translatedText: nil)
     }
@@ -118,21 +118,36 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         }
         return true
     }
-    
+
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         return true
     }
-    
+
     // MARK: Conforming to UITableViewDataSource protocol
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return translation?.examples.count ?? 0
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
     }
-    
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard translation != nil else {
+            return 0;
+        }
+
+        return section > 0 ? translation?.examples.count ?? 0 : 1;
+    }
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let translationCell = tableView.dequeueReusableCellWithIdentifier("translationViewCell",
-            forIndexPath: indexPath) as! TranslationTableViewCell
+                                                                          forIndexPath: indexPath) as! TranslationTableViewCell
         let example = translation!.examples[indexPath.row]
-        translationCell.configureCell(example.originalText, translatedText: example.translatedText, liked: false, language: translateToLanguage!, row: indexPath.row)
+        translationCell.configureCell(
+            indexPath.section == 0 ? translation!.phrases : [],
+            originalText: example.originalText,
+            translatedText: example.translatedText,
+            liked: false,
+            language: translateToLanguage!,
+            row: indexPath.section == 0 ? -1 : indexPath.row)
         translationCell.likeCallback = self.handleLike
         translationCell.speakCallback = self.handleCellSpeak
         return translationCell
@@ -143,13 +158,21 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
 
     func handleCellSpeak(row : Int) {
-        let example = translation!.examples[row]
-        let cellIndexPath = NSIndexPath(forRow: row, inSection: 0)
+        if row == -1 {
+            let cellIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+            let translationCell = resultsTable.cellForRowAtIndexPath(cellIndexPath) as! TranslationTableViewCell
+            speakText(translationCell.speakText,
+                      originalText: translation?.phrases.joinWithSeparator(","), translatedText: nil)
 
-        let translationCell = resultsTable.cellForRowAtIndexPath(cellIndexPath) as! TranslationTableViewCell
+        } else {
+            let example = translation!.examples[row]
+            let cellIndexPath = NSIndexPath(forRow: row, inSection: 1)
 
-        speakText(translationCell.speakText,
-                  originalText: example.originalText, translatedText: example.translatedText)
+            let translationCell = resultsTable.cellForRowAtIndexPath(cellIndexPath) as! TranslationTableViewCell
+
+            speakText(translationCell.speakText,
+                      originalText: example.originalText, translatedText: example.translatedText)
+        }
     }
 
     func handleLike(row : Int, liked: Bool) {
@@ -179,7 +202,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     func saveTranslation() {
         guard self.translation != nil else { return }
         let savedTranslation = TranslationHistory(date: NSDate(),
-            word: originalText.text!, context: self.sharedContext)
+                                                  word: originalText.text!, context: self.sharedContext)
         savedTranslation.originalLanguage = originalLanguage
         savedTranslation.translateToLanguage = translateToLanguage
         saveContext()
