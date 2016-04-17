@@ -9,14 +9,14 @@
 import UIKit
 
 class TranslationTableViewCell : UITableViewCell {
-    
+
     @IBOutlet weak var speakText: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var unlikeButton: UIButton!
-    
+
     @IBOutlet weak var originalText: UILabel!
     @IBOutlet weak var translatedText: UILabel!
-    
+
     var translateToLanguage : Language?
     var likeCallback : ((row : Int , liked : Bool) -> Void)?
     var speakCallback : ((row : Int) -> Void)?
@@ -26,35 +26,35 @@ class TranslationTableViewCell : UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     // MARK: IBActions
     @IBAction func speakExample(sender: AnyObject) {
         speakCallback?(row: row!)
     }
-    
+
     @IBAction func likeButtonTouchUpInside(sender: AnyObject) {
         toggleLikedState()
     }
-    
+
     @IBAction func unlikeButtonTouchUpInside(sender: AnyObject) {
         toggleLikedState()
     }
-    
+
     // MARK: Helper functions
     func configureCell(originalText : String, translatedText : String, liked : Bool, language : Language, row : Int) {
         likeButton.hidden = liked
         unlikeButton.hidden = !liked
-        
-        self.originalText.text = originalText
-        self.translatedText.text = translatedText
+
+        self.originalText.attributedText = Helpers.generateAttributedText(originalText)
+        self.translatedText.attributedText = Helpers.generateAttributedText(translatedText)
         self.row = row
         translateToLanguage = language
     }
-    
+
     private func toggleLikedState() {
         swap(&likeButton.hidden, &unlikeButton.hidden)
         likeCallback?(row: row!, liked: likeButton.hidden)

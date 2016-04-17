@@ -94,7 +94,7 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
         if let origText = originalTextParam {
             pauseOriginal.hidden = true
             playOriginal.hidden = false
-            originalText.text = origText
+            originalText.attributedText = Helpers.generateAttributedText(origText)
         } else {
             pauseOriginal.hidden = true
             playOriginal.hidden = true
@@ -104,7 +104,7 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
         if let transText = translatedTextParam {
             pauseTranslated.hidden = true
             playTranslated.hidden = false
-            translatedText.text = transText
+            translatedText.attributedText = Helpers.generateAttributedText(transText)
         } else {
             pauseTranslated.hidden = true
             playTranslated.hidden = true

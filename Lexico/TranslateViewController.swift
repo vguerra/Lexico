@@ -146,8 +146,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         let example = translation!.examples[row]
         let cellIndexPath = NSIndexPath(forRow: row, inSection: 0)
 
-        let translationCell = resultsTable.dequeueReusableCellWithIdentifier("translationViewCell",
-                                                                          forIndexPath: cellIndexPath) as! TranslationTableViewCell
+        let translationCell = resultsTable.cellForRowAtIndexPath(cellIndexPath) as! TranslationTableViewCell
 
         speakText(translationCell.speakText,
                   originalText: example.originalText, translatedText: example.translatedText)
