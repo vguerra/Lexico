@@ -47,12 +47,14 @@ struct Glosbe {
             let tucObjs = json["tuc"] as? [[String : AnyObject]] {
                 
                 // processing tuc array of objects
-                let phrases = tucObjs.flatMap() { tuc -> String? in
+                let phrasesFull = tucObjs.flatMap() { tuc -> String? in
                     if let phraseObj = tuc["phrase"] as? [String:String] {
                         return phraseObj["text"]
                     }
                     return nil
                 }
+
+                let phrases = Array(phrasesFull[0 ..< min(10, phrasesFull.count)])
                 
                 // processing example array of objects
                 let exampleObjs = json["examples"] as? [[String : AnyObject]]
