@@ -269,6 +269,7 @@
                                                     </variation>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="arrowButton" destination="iUf-6k-l5Q" id="jes-Y3-eaB"/>
                                                     <outlet property="likeButton" destination="nuq-2M-FrO" id="YY6-IM-is8"/>
                                                     <outlet property="originalText" destination="983-l9-odQ" id="Xzv-E5-YYD"/>
                                                     <outlet property="speakText" destination="mm4-CM-g9c" id="bxl-ff-7Cr"/>

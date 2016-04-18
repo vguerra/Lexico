@@ -129,12 +129,25 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         return 2
     }
 
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard translation != nil else {
+            return nil
+        }
+        return section == 0 ? "Translations" : "Examples of Usage"
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard translation != nil else {
             return 0;
         }
 
         return section > 0 ? translation?.examples.count ?? 0 : 1;
+    }
+
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.textAlignment = .Center
+        }
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -154,7 +167,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 150
+        return  CGFloat(75*indexPath.section) + 75
     }
 
     func handleCellSpeak(row : Int) {
@@ -162,7 +175,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
             let cellIndexPath = NSIndexPath(forRow: 0, inSection: 0)
             let translationCell = resultsTable.cellForRowAtIndexPath(cellIndexPath) as! TranslationTableViewCell
             speakText(translationCell.speakText,
-                      originalText: translation?.phrases.joinWithSeparator(","), translatedText: nil)
+                      originalText: nil, translatedText: translation?.phrases.joinWithSeparator(", "))
 
         } else {
             let example = translation!.examples[row]

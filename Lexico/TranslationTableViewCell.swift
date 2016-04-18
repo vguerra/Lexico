@@ -13,6 +13,7 @@ class TranslationTableViewCell : UITableViewCell {
     @IBOutlet weak var speakText: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var unlikeButton: UIButton!
+    @IBOutlet weak var arrowButton: UIButton!
 
     @IBOutlet weak var originalText: UILabel!
     @IBOutlet weak var translatedText: UILabel!
@@ -46,16 +47,17 @@ class TranslationTableViewCell : UITableViewCell {
 
     // MARK: Helper functions
     func configureCell(phrases : [String], originalText : String, translatedText : String, liked : Bool, language : Language, row : Int) {
-        if phrases.count > 0 {
+        if phrases.count < 1 {
             likeButton.hidden = liked
             unlikeButton.hidden = !liked
             self.originalText.attributedText = Helpers.generateAttributedText(originalText)
             self.translatedText.attributedText = Helpers.generateAttributedText(translatedText)
         } else {
-            self.originalText.attributedText = Helpers.generateAttributedText(phrases.joinWithSeparator(","))
+            self.originalText.attributedText = Helpers.generateAttributedText(phrases.joinWithSeparator(", "))
             self.translatedText.hidden = true
             likeButton.hidden = true
             unlikeButton.hidden = true
+            arrowButton.hidden = true
         }
 
         self.row = row
