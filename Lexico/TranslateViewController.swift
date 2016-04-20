@@ -78,7 +78,6 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         speakText(sender as! UIView, originalText: originalText.text!, translatedText: nil)
     }
 
-
     // MARK : Presenting PopUp helpers
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
