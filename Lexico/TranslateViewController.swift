@@ -91,7 +91,10 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
 
     // MARK : Conforming to FinishedPickingLanguageProtocol
-    func didFinishPickingLanguage() {
+    func didFinishPickingLanguage(selectedValue : Bool) {
+        guard !selectedValue else {
+            return
+        }
         translation = nil
         resultsTable.reloadData()
     }

@@ -16,7 +16,7 @@ enum SBIdentifiers : String {
 }
 
 protocol FinishedPickingLanguageProtocol {
-    func didFinishPickingLanguage()
+    func didFinishPickingLanguage(selectedValue : Bool)
 }
 
 final class LanguagePickerController : UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -45,10 +45,14 @@ final class LanguagePickerController : UIViewController, UITableViewDataSource, 
     
     // MARK: IBActions
     @IBAction func dismissController(sender: AnyObject) {
-        delegate?.didFinishPickingLanguage()
+        dismissMe(false)
+    }
+
+    func dismissMe(selectedLanguage : Bool) {
+        delegate?.didFinishPickingLanguage(selectedLanguage)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     // MARK: Conforming to UITableViewDataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
@@ -81,7 +85,7 @@ final class LanguagePickerController : UIViewController, UITableViewDataSource, 
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         UserPreferences.saveTranslateToLanguageIndex(indexPath.row)
-        dismissController(tableView)
+        dismissMe(true)
     }
     
 }
