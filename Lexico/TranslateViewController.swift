@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
+class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, FinishedPickingLanguageProtocol  {
 
     @IBOutlet weak var pickTargetLanguage: UIButton!
     @IBOutlet weak var speakOriginalText: UIButton!
@@ -38,9 +38,6 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         resultsTable.delegate = self
         resultsTable.dataSource = self
 
-        //resultsTable.estimatedRowHeight = 100.0
-        //resultsTable.rowHeight = UITableViewAutomaticDimension
-
         navigationItem.title = "Translate"
     }
 
@@ -62,8 +59,6 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
 
     @IBAction func translateTouchUpInside(sender: AnyObject) {
-        // save translation
-
         startActivityAnimation(message: "Loading Translations...")
         Glosbe.translate(originalLanguage, translateToLanguage!, originalText.text!) { trnResult in
             switch trnResult {
@@ -83,8 +78,26 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         speakText(sender as! UIView, originalText: originalText.text!, translatedText: nil)
     }
 
-    // MARK: Speaking text Pop-over
 
+    // MARK : Presenting PopUp helpers
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segue.identifier! {
+        case "presentLanguagePicker" :
+            let viewController = segue.destinationViewController as! LanguagePickerController
+            viewController.delegate = self
+            break
+        default :
+            break
+        }
+    }
+
+    // MARK : Conforming to FinishedPickingLanguageProtocol
+    func didFinishPickingLanguage() {
+        translation = nil
+        resultsTable.reloadData()
+    }
+
+    // MARK: Speaking text Pop-over
     func speakText(sender: UIView, originalText : String?, translatedText : String?) {
         let speakTextController = self.storyboard!.instantiateViewControllerWithIdentifier("speakTextViewController") as! SpeakTextViewController
 
@@ -103,8 +116,6 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
         controller.sourceView = sender
 
         self.presentViewController(speakTextController, animated: true, completion: nil)
-
-
     }
     // MARK: Conforming to UITextFieldDelegate
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {

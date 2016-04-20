@@ -15,11 +15,17 @@ enum SBIdentifiers : String {
     case languageTableViewCell = "languageCell"
 }
 
+protocol FinishedPickingLanguageProtocol {
+    func didFinishPickingLanguage()
+}
+
 final class LanguagePickerController : UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var languagesTableView: UITableView!
     
     var translateToLanguage : Language?
+    var delegate : FinishedPickingLanguageProtocol?
+
     let LanguageManager = LanguagesManager.sharedInstace
     
     // MARK: View Controller Life Cycle
@@ -39,6 +45,7 @@ final class LanguagePickerController : UIViewController, UITableViewDataSource, 
     
     // MARK: IBActions
     @IBAction func dismissController(sender: AnyObject) {
+        delegate?.didFinishPickingLanguage()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
