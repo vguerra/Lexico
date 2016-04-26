@@ -92,7 +92,7 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
 
     // MARK : Conforming to FinishedPickingLanguageProtocol
     func didFinishPickingLanguage(selectedValue : Bool) {
-        guard !selectedValue else {
+        guard selectedValue else {
             return
         }
         translation = nil
@@ -139,6 +139,20 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     // MARK: Conforming to UITableViewDataSource protocol
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        guard translation != nil else {
+            return 0
+        }
+
+        guard translation?.phrases.count > 0 &&
+        translation?.examples.count > 0
+        else {
+            let noDataLable = UILabel()
+            noDataLable.text = "No Translations found!"
+            noDataLable.textAlignment = NSTextAlignment.Center
+            tableView.backgroundView = noDataLable
+            return 0
+        }
+
         return 2
     }
 
@@ -174,13 +188,14 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
             liked: false,
             language: translateToLanguage!,
             row: indexPath.section == 0 ? -1 : indexPath.row)
+        
         translationCell.likeCallback = self.handleLike
         translationCell.speakCallback = self.handleCellSpeak
         return translationCell
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return  CGFloat(75*indexPath.section) + 75
+        return  CGFloat(50*indexPath.section) + 75
     }
 
     func handleCellSpeak(row : Int) {
@@ -216,10 +231,6 @@ class TranslateViewController: BaseViewController, UITextFieldDelegate, UITableV
     }
 
     // MARK: Conforming to UIPopoverPresentationControllerDelegate
-    func popoverPresentationController(popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverToRect rect: UnsafeMutablePointer<CGRect>, inView view: AutoreleasingUnsafeMutablePointer<UIView?>) {
-        print("using rect")
-    }
-
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return .None
     }
