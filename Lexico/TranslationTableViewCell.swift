@@ -50,9 +50,12 @@ class TranslationTableViewCell : UITableViewCell {
         if phrases.count < 1 {
             likeButton.hidden = liked
             unlikeButton.hidden = !liked
+            arrowButton.hidden = false
             self.originalText.attributedText = Helpers.generateAttributedText(originalText)
+            self.translatedText.hidden = false
             self.translatedText.attributedText = Helpers.generateAttributedText(translatedText)
         } else {
+            print("we got a translations one.")
             self.originalText.attributedText = Helpers.generateAttributedText(phrases.joinWithSeparator(", "))
             self.translatedText.hidden = true
             likeButton.hidden = true
