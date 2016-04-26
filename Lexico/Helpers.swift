@@ -21,5 +21,4 @@ struct Helpers {
         attributedText.setAttributes([NSFontAttributeName : UIFont(name : "Symbol", size: 14)!], range: fullRange)
         return attributedText
     }
-    
 }

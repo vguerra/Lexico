@@ -40,7 +40,6 @@ final class LanguagePickerController : UIViewController, UITableViewDataSource, 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         translateToLanguage = UserPreferences.getTranslateToLanguage()
-        
     }
     
     // MARK: IBActions
