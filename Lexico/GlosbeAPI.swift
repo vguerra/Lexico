@@ -12,7 +12,7 @@ typealias TrnResult = RResult<Translation, NSError>.t
 
 struct Glosbe {
     private static let apiURL = "https://glosbe.com/gapi/"
-    private static let AdmitedExampleLength = 300
+    private static let AdmitedExampleLength = 200
     private static let baseUrlParamDict = [
         "tm" : "true",
         "format" : "json"
