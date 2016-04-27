@@ -125,9 +125,9 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-        let attText = NSMutableAttributedString(string: utterance.speechString)
-        attText.setAttributes([NSBackgroundColorAttributeName: UIColor.lightGrayColor()], range: characterRange)
-        speakingText?.attributedText = attText
+//        let attText = NSMutableAttributedString(string: utterance.speechString)
+//        attText.setAttributes([NSBackgroundColorAttributeName: UIColor.lightGrayColor()], range: characterRange)
+        speakingText?.attributedText = Helpers.generateAttributedText(utterance.speechString, highlightRange: characterRange)
     }
 
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
