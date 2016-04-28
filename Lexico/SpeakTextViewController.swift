@@ -9,13 +9,20 @@
 import UIKit
 import AVFoundation
 
+enum PlayingNow {
+    case Original, Translated, None
+}
+
 class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
+    static let speeds : [Float] = [0.50, 0.40, 0.20]
 
     @IBOutlet weak var playOriginal: UIButton!
     @IBOutlet weak var pauseOriginal: UIButton!
     @IBOutlet weak var playTranslated: UIButton!
     @IBOutlet weak var pauseTranslated: UIButton!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var stopOriginal: UIButton!
+    @IBOutlet weak var stopTranslated: UIButton!
 
     @IBOutlet weak var originalText: UITextView!
     @IBOutlet weak var translatedText: UITextView!
@@ -30,8 +37,7 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
     var originalPlayed : Int = -1
     var translatedPlayed : Int = -1
 
-    static let speeds : [Float] = [0.50, 0.40, 0.20]
-
+    var playingStatus : PlayingNow = .None
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +49,31 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 
     //MARK : IBActions
+
+    @IBAction func stopOriginalTouchUp(sender: AnyObject) {
+        guard playingStatus == .Original else {
+            return
+        }
+        stopSpeech()
+    }
+
+    @IBAction func stopTranslatedTouchUp(sender: AnyObject) {
+        guard playingStatus == .Translated else {
+            return
+        }
+        stopSpeech()
+    }
+
     @IBAction func closePopover(sender: AnyObject) {
         speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     @IBAction func playOriginalTouchUp(sender: AnyObject) {
+        guard playingStatus == .None else {
+            return
+        }
+        playingStatus = .Original
         toggleOriginalButtons()
         if speechSynthesizer.paused {
             speechSynthesizer.continueSpeaking()
@@ -65,6 +90,10 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 
     @IBAction func playTranslatedTouchUp(sender: AnyObject) {
+        guard playingStatus == .None else {
+            return
+        }
+        playingStatus = .Translated
         toggleTranslatedButtons()
         if speechSynthesizer.paused {
             speechSynthesizer.continueSpeaking()
@@ -81,7 +110,6 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 
     // MARK : Helper functions
-
     func toggleOriginalButtons() {
         swap(&playOriginal.hidden, &pauseOriginal.hidden)
     }
@@ -91,23 +119,26 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 
     func configure() {
+        playOriginal.hidden = false
+        playTranslated.hidden = false
+        pauseOriginal.hidden = true
+        stopOriginal.hidden = false
+        pauseTranslated.hidden = true
+        stopTranslated.hidden = false
+
         if let origText = originalTextParam {
-            pauseOriginal.hidden = true
-            playOriginal.hidden = false
             originalText.attributedText = Helpers.generateAttributedText(origText)
         } else {
-            pauseOriginal.hidden = true
             playOriginal.hidden = true
+            stopOriginal.hidden = true
             originalText.hidden = true
         }
 
         if let transText = translatedTextParam {
-            pauseTranslated.hidden = true
-            playTranslated.hidden = false
             translatedText.attributedText = Helpers.generateAttributedText(transText)
         } else {
-            pauseTranslated.hidden = true
             playTranslated.hidden = true
+            stopTranslated.hidden = true
             translatedText.hidden = true
         }
     }
@@ -125,12 +156,16 @@ class SpeakTextViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-//        let attText = NSMutableAttributedString(string: utterance.speechString)
-//        attText.setAttributes([NSBackgroundColorAttributeName: UIColor.lightGrayColor()], range: characterRange)
         speakingText?.attributedText = Helpers.generateAttributedText(utterance.speechString, highlightRange: characterRange)
     }
 
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
+        stopSpeech()
+    }
+
+    func stopSpeech() {
+        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         configure()
+        playingStatus = .None
     }
 }
